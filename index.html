@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paso</title>
+    <link rel="manifest" href="paso-frontend/manifest.json">
+    <link rel="apple-touch-icon" href="paso-frontend/Icons/Logo-192.png">
+    <link rel="icon" href="paso-frontend/Icons/Logo.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#0037FF">
+    <meta name="description" content="Servicio de delivery de diversos productos">
+
+    <!-- Metadatos específicos para iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Paso">
+    <link rel="apple-touch-icon" sizes="180x180" href="paso-frontend/Icons/Logo-192.png">
+    <link rel="apple-touch-startup-image" href="paso-frontend/Icons/Logo-512.png">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+            overflow: hidden; /* Evitar barras de desplazamiento */
+        }
+        .container {
+            width: 100%; 
+            height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            flex-direction: column;
+            border: 5px solid black; /* Borde estándar */
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: calc(30px + 2vh);
+            text-align: center;
+            margin-bottom: 20px; /* Reducir margen inferior */
+        }
+        .button {
+            display: block; 
+            width: calc(300px - 2vw);
+            height: calc(45px + 2vh);
+            margin: 10px 0; /* Reducir margen inferior y superior */
+            padding: 10px;
+            border: none; 
+            color: white; 
+            font-weight: bold; 
+            text-transform: uppercase;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .crear-cuenta-btn {
+            background-color: #FFA500;
+        }
+
+        .iniciar-sesion-btn {
+            background-color: #0000FF;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container {
+                border-width: 2px; /* Borde más delgado para pantallas pequeñas */
+            }
+            .button {
+                width: calc(100% - 4vw); /* Ajustar el tamaño de los botones para pantallas pequeñas */
+                height: calc(40px + 2vh);
+            }
+            h1 {
+                font-size: calc(25px + 2vh); /* Ajustar el tamaño del texto para pantallas pequeñas */
+                margin-bottom: 15px; /* Reducir margen inferior */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Paso</h1>
+        <button class="button crear-cuenta-btn" onclick="window.location.href='paso-frontend/pages/signup.html'">Crear una cuenta</button>
+        <button class="button iniciar-sesion-btn">Iniciar sesión</button>
+    </div>
+    <script src="paso-frontend/pwa.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="apple-touch-icon" href="../Icons/Logo-192.png">
+    <link rel="icon" href="../Icons/Logo.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#0037FF">
+    <meta name="description" content="Servicio de delivery de diversos productos">
+
+    <!-- Metadatos específicos para iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Paso">
+    <link rel="apple-touch-icon" sizes="180x180" href="../Icons/Logo-192.png">
+    <link rel="apple-touch-startup-image" href="../Icons/Logo-512.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+            position: relative;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 30px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            max-width: 300px;
+            height: 50px;
+            margin: 10px 0;
+            padding: 0 20px;
+            border: none;
+            background-color: #ffffff;
+            color: #000000;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-transform: none;
+        }
+
+        .button img {
+            width: 30px;
+            height: 30px;
+            margin-right: 20px;
+        }
+
+        .terms {
+            position: absolute;
+            bottom: 30px;
+            font-size: 14px;
+            color: #666666;
+            text-align: center;
+            width: 100%;
+        }
+
+        .terms a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        @media (max-width: 414px) {
+            .button {
+                width: 80%;
+                max-width: none;
+            }
+
+            .terms {
+                width: 80%;
+                left: 10%;
+                bottom: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <button class="close-button" onclick="window.location.href='../../index.html'">&times;</button>
+        <h1>Bienvenido a bordo!</h1>
+        <button class="button google">
+            <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google"> Crear con Google
+        </button>
+        <button class="button facebook">
+            <img src="https://img.icons8.com/color/48/000000/facebook-new.png" alt="Facebook"> Crear con Facebook
+        </button>
+        <button class="button email" onclick="window.location.href='register_email.html'">
+            <img src="https://img.icons8.com/ios-glyphs/30/000000/new-post.png" alt="Correo"> Crear con Correo
+        </button>
+        <button class="button phone">
+            <img src="https://img.icons8.com/ios-glyphs/30/000000/phone.png" alt="Teléfono"> Crear con Teléfono
+        </button>
+        <p class="terms">Al registrarte aceptas nuestros <a href="#">términos y condiciones</a></p>
+    </div>
+    <script src="../pwa.js"></script>
+</body>
+
+</html>

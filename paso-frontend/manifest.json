@@ -1,0 +1,23 @@
+{
+    "name": "Paso",
+    "short_name": "Paso",
+    "description": "Servicio de delivery de diversos productos",
+    "start_url": "../index.html",
+    "display": "standalone",
+    "background_color": "#0037FF",
+    "theme_color": "#FCBA03",
+    "icons": [
+        {
+            "src": "Icons/Logo-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "Icons/Logo-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+  }
+  
+  
