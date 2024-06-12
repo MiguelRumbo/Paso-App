@@ -1,14 +1,19 @@
 const CACHE_NAME = 'paso-app-cache-v1';
 const urlsToCache = [
-    '/PASO-APP/',
-    '/PASO-APP/index.html',
-    '/PASO-APP/paso-frontend/pages/signup.html',
-    '/PASO-APP/paso-frontend/pages/signup_email.html',
-    '/PASO-APP/paso-frontend/pages/signup_password.html',
-    '/PASO-APP/manifest.json',
-    '/PASO-APP/paso-frontend/Icons/Logo-192.png',
-    '/PASO-APP/paso-frontend/Icons/Logo.svg',
-    '/PASO-APP/paso-frontend/Icons/Logo-512.png'
+    '/Paso-App/',
+    '/Paso-App/index.html',
+    '/Paso-App/paso-frontend/pages/register.html',
+    '/Paso-App/paso-frontend/pages/register_email.html',
+    '/Paso-App/paso-frontend/pages/register_password.html',
+    '/Paso-App/paso-frontend/pages/register_profile.html',
+    '/Paso-App/paso-frontend/pages/login.html',
+    '/Paso-App/paso-frontend/pages/dashboard.html',
+    '/Paso-App/manifest.json',
+    '/Paso-App/paso-frontend/Icons/Logo-192.png',
+    '/Paso-App/paso-frontend/Icons/Logo.svg',
+    '/Paso-App/paso-frontend/Icons/Logo-512.png',
+    '/Paso-App/paso-backend/login.js',
+    '/Paso-App/paso-backend/register.js'
 ];
 
 // Instalación del service worker y almacenamiento en caché de recursos
