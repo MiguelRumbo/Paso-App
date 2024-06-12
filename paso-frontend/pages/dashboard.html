@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Próximos Viajes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 414px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .header input[type="date"] {
+            width: calc(100% - 40px);
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .header button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            background-color: #ffa500;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .trips-container {
+            max-height: 70vh; /* Altura máxima de la sección */
+            overflow-y: auto; /* Activar desplazamiento vertical */
+            margin-top: 20px;
+        }
+
+        .trips {
+            background-color: #fff;
+            padding: 15px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .trip {
+            background-color: #fff;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            padding: 15px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .trip img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .trip-info {
+            flex: 1;
+            margin-left: 10px;
+        }
+
+        .trip-info h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .trip-info p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .trip-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        @media (max-width: 414px) {
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <select>
+                <option value="Leon">León</option>
+                <option value="Guanajuato">Guanajuato</option>
+                <option value="Irapuato">Irapuato</option>
+                <option value="Celaya">Celaya</option>
+                <option value="San Miguel de Allende">San Miguel de Allende</option>
+                <!-- Agrega más opciones según sea necesario -->
+            </select>
+            <input type="date">
+            <button>Buscar</button>
+        </div>
+        <h2>Próximos viajes a tu ciudad</h2>
+        <div class="trips-container">
+            <div class="trips">
+                <div class="trip">
+                    <img src="https://via.placeholder.com/50" alt="Juan">
+                    <div class="trip-info">
+                        <h3>Ciudades a visitar: Guadalajara, CDMX, Monterrey</h3>
+                        <p>Productos populares en estas ciudades</p>
+                        <p>Fecha de llegada a tu ciudad: 15/mayo/2024 (5 días)</p>
+                    </div>
+                    <div class="trip-price">$70</div>
+                </div>
+                <div class="trip">
+                    <img src="https://via.placeholder.com/50" alt="Carlos">
+                    <div class="trip-info">
+                        <h3>Ciudades a visitar: Irapuato, Toluca, Nayarit</h3>
+                        <p>Productos populares en estas ciudades</p>
+                        <p>Fecha de llegada a tu ciudad: 12/mayo/2024 (2 días)</p>
+                    </div>
+                    <div class="trip-price">$80</div>
+                </div>
+                <div class="trip">
+                    <img src="https://via.placeholder.com/50" alt="Carlos">
+                    <div class="trip-info">
+                        <h3>Ciudades a visitar: Puerto Vallarta, Nayarit</h3>
+                        <p>Productos populares en estas ciudades</p>
+                        <p>Fecha de llegada a tu ciudad: 12/mayo/2024 (2 días)</p>
+                    </div>
+                    <div class="trip-price">$80</div>
+                </div>
+                <div class="trip">
+                    <img src="https://via.placeholder.com/50" alt="Carlos">
+                    <div class="trip-info">
+                        <h3>Ciudades a visitar: Puerto Vallarta, Nayarit</h3>
+                        <p>Productos populares en estas ciudades</p>
+                        <p>Fecha de llegada a tu ciudad: 12/mayo/2024 (2 días)</p>
+                    </div>
+                    <div class="trip-price">$80</div>
+                </div>
+                <div class="trip">
+                    <img src="https://via.placeholder.com/50" alt="Carlos">
+                    <div class="trip-info">
+                        <h3>Ciudades a visitar: Puerto Vallarta, Nayarit</h3>
+                        <p>Productos populares en estas ciudades</p>
+                        <p>Fecha de llegada a tu ciudad: 12/mayo/2024 (2 días)</p>
+                    </div>
+                    <div class="trip-price">$80</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
