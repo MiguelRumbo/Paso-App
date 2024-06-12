@@ -52,6 +52,7 @@ async function submitProfile(event) {
             alert(`Error: ${result.error}`);
         } else {
             alert(result.message);
+            window.location.href = 'login.html';
         }
     } catch (error) {
         console.error('Error:', error);
