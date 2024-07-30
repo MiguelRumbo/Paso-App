@@ -18,169 +18,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../Icons/Logo-192.png">
     <link rel="apple-touch-startup-image" href="../Icons/Logo-512.png">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-            font-size: 20px;
-        }
-
-        .container {
-            position: relative;
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
-            z-index: 2;
-            margin-top: 10px;
-        }
-
-        .close-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 30px;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            z-index: 3;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        input.text {
-            width: 90%;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 22px;
-        }
-
-        select.text {
-            width: 90%;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 22px;
-        }
-
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            margin-bottom: 30px;
-            width: 90%;
-        }
-
-        .checkbox-container p {
-            margin: 0;
-            font-size: 22px;
-            text-align: left;
-            line-height: 1.5;
-        }
-
-        .checkbox {
-            margin-left: 10px;
-            width: auto;
-            height: auto;
-            transform: scale(3);
-        }
-
-        .password-requirements {
-            width: 90%;
-            text-align: left;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .password-requirements p {
-            margin: 5px 0;
-        }
-
-        .valid {
-            color: green;
-        }
-
-        .invalid {
-            color: red;
-        }
-
-        .terms {
-            position: absolute;
-            bottom: 30px;
-            font-size: 14px;
-            color: #666666;
-            text-align: center;
-            width: 100%;
-            z-index: 2;
-        }
-
-        .terms a {
-            color: #1a73e8;
-            text-decoration: none;
-        }
-
-        img.background-image {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100vw;
-            height: auto;
-            z-index: 1;
-            margin: 0;
-            padding: 0;
-        }
-
-        @media (max-width: 414px) {
-            .container {
-                width: 100%;
-            }
-
-            input.text {
-                width: 80%;
-            }
-        }
-
-        .error-message {
-            color: red;
-            font-size: 16px;
-            margin: 10px 0;
-            display: none;
-        }
-
-        .submit-button {
-            width: 50px;
-            height: 50px;
-            background-color: #0070FF;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            font-size: 38px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            margin-top: 10px;
-            margin-right: 15px;
-            align-self: flex-end;
-        }
-
-        .hidden {
-            display: none;
-        }
+        /* Estilos aquí */
     </style>
 </head>
 
@@ -197,7 +35,7 @@
             <button type="button" class="submit-button" onclick="showPasswordForm()">></button>
             <p class="error-message" id="email-error-message">El correo electrónico no puede estar vacío</p>
         </form>
-        
+
         <form id="password-form" class="hidden">
             <h1>Introduce una contraseña</h1>
             <div class="password-requirements" id="password-requirements">
@@ -212,14 +50,15 @@
             <p class="error-message" id="error-message">Las contraseñas no coinciden</p>
             <button type="button" class="submit-button" onclick="showProfileForm()">></button>
         </form>
-        
-        <form id="profile-form" class="hidden">
+
+        <form id="profile-form" class="hidden" onsubmit="return validateProfileForm()">
             <h1>Registro de Información Personal</h1>
             <input type="text" class="text" id="first-name" placeholder="Nombre" required>
             <input type="text" class="text" id="last-name" placeholder="Apellido Paterno" required>
             <input type="text" class="text" id="mother-last-name" placeholder="Apellido Materno" required>
             <label for="birthdate">Fecha de Nacimiento</label>
             <input type="date" class="text" id="birthdate" required>
+            <p class="error-message" id="age-error-message">Debes tener al menos 18 años para registrarte.</p>
             <label for="gender">Sexo</label>
             <select class="text" id="gender" required>
                 <option value="male">Masculino</option>
@@ -298,6 +137,35 @@
             }
         }
 
+        function validateProfileForm() {
+            const birthdate = new Date(document.getElementById('birthdate').value);
+            const today = new Date();
+            const age = today.getFullYear() - birthdate.getFullYear();
+            const month = today.getMonth() - birthdate.getMonth();
+            if (month < 0 || (month === 0 && today.getDate() < birthdate.getDate())) {
+                age--;
+            }
+
+            const ageErrorMessage = document.getElementById('age-error-message');
+            if (age < 18) {
+                ageErrorMessage.style.display = 'block';
+                return false; // Previene el envío del formulario
+            } else {
+                ageErrorMessage.style.display = 'none';
+            }
+
+            // Simulación de la respuesta del servidor
+            const registrationSuccess = true; // Cambia esto según la respuesta real del servidor
+
+            if (registrationSuccess) {
+                window.location.href = ".../.../index.html";
+            } else {
+                alert('El registro falló. Inténtalo más tarde.');
+                window.location.href = ".../.../index.html";
+            }
+
+            return false; // Previene el envío del formulario
+        }
         password.addEventListener('input', validatePassword);
         confirmPassword.addEventListener('input', validateConfirmPassword);
     </script>
