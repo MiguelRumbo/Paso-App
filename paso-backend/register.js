@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función para manejar la presentación del perfil
     async function submitProfile(event) {
         event.preventDefault();
-        
+
         const data = {
             email: document.getElementById('email').value,
             password: document.getElementById('password').value,
@@ -109,8 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Agregar eventos a los botones
-    document.querySelector('.submit-button').addEventListener('click', showPasswordForm);
-    document.querySelector('.submit-button').addEventListener('click', showProfileForm);
+    document.getElementById('next-to-password-form').addEventListener('click', showPasswordForm);
+    document.getElementById('next-to-profile-form').addEventListener('click', showProfileForm);
     document.getElementById('profile-form').addEventListener('submit', submitProfile);
 
     // Eventos para validar las contraseñas

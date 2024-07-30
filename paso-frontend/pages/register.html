@@ -194,7 +194,7 @@
                 <p>No quiero recibir newsletters, ofertas ni regalos de Paso.</p>
                 <input type="checkbox" class="checkbox">
             </div>
-            <button type="button" class="submit-button" onclick="showPasswordForm()">></button>
+            <button type="button" class="submit-button" id="next-to-password-form">></button>
             <p class="error-message" id="email-error-message">El correo electrónico no puede estar vacío</p>
         </form>
 
@@ -210,10 +210,10 @@
             <input type="password" class="text" id="confirm-password" placeholder="Repite tu contraseña" required>
             <p class="error-message" id="password-error-message">Las contraseñas no pueden estar vacías</p>
             <p class="error-message" id="error-message">Las contraseñas no coinciden</p>
-            <button type="button" class="submit-button" onclick="showProfileForm()">></button>
+            <button type="button" class="submit-button" id="next-to-profile-form">></button>
         </form>
 
-        <form id="profile-form" class="hidden" onsubmit="return validateProfileForm()">
+        <form id="profile-form" class="hidden">
             <h1>Registro de Información Personal</h1>
             <input type="text" class="text" id="first-name" placeholder="Nombre" required>
             <input type="text" class="text" id="last-name" placeholder="Apellido Paterno" required>
@@ -331,6 +331,7 @@
         password.addEventListener('input', validatePassword);
         confirmPassword.addEventListener('input', validateConfirmPassword);
     </script>
+    <script src="register.js"></script>
 </body>
 
 </html>
