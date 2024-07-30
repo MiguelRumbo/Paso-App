@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Contraseña</title>
-    <script src="../../paso-backend/register.js"></script>
+    <title>Registro</title>
     <link rel="manifest" href="../manifest.json">
     <link rel="apple-touch-icon" href="../Icons/Logo-192.png">
     <link rel="icon" href="../Icons/Logo.svg" type="image/svg+xml">
@@ -21,7 +20,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 5px;
+            margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
@@ -42,7 +41,7 @@
             flex-direction: column;
             text-align: center;
             z-index: 2;
-            margin-top: 85px; /* Ajusta el margen superior para la separación */
+            margin-top: 10px;
         }
 
         .close-button {
@@ -63,10 +62,41 @@
         input.text {
             width: 90%;
             padding: 15px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             border-radius: 5px;
             border: 1px solid #ccc;
             font-size: 22px;
+        }
+
+        select.text {
+            width: 90%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 22px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 30px;
+            width: 90%;
+        }
+
+        .checkbox-container p {
+            margin: 0;
+            font-size: 22px;
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        .checkbox {
+            margin-left: 10px;
+            width: auto;
+            height: auto;
+            transform: scale(3);
         }
 
         .password-requirements {
@@ -120,7 +150,7 @@
             }
 
             input.text {
-                width: 90%;
+                width: 80%;
             }
         }
 
@@ -147,31 +177,72 @@
             margin-right: 15px;
             align-self: flex-end;
         }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
-    <button class="close-button" onclick="window.location.href='register_email.html'">&times;</button>
-    <form class="container" id="password-registration-form" onsubmit="savePassword(); return false;">
-        <h1>Introduce una contraseña</h1>
-        <div class="password-requirements" id="password-requirements">
-            <p id="uppercase" class="invalid">Debe contener una letra mayúscula</p>
-            <p id="special" class="invalid">Debe contener un caracter especial</p>
-            <p id="number" class="invalid">Debe contener un número</p>
-            <p id="length" class="invalid">Debe tener más de ocho caracteres</p>
-        </div>
-        <input type="password" class="text" id="password" placeholder="Introduce tu contraseña">
-        <input type="password" class="text" id="confirm-password" placeholder="Repite tu contraseña">
-        <p class="error-message" id="error-message">Las contraseñas no coinciden</p>
-        <button type="submit" class="submit-button">&gt;</button>
-    </form>
+    <button class="close-button" onclick="window.location.href='signup.html'">&times;</button>
+    <div class="container">
+        <form id="email-form">
+            <h1>¿Cuál es tu correo?</h1>
+            <input type="email" class="text" id="email" placeholder="Introduce tu correo" required>
+            <div class="checkbox-container">
+                <p>No quiero recibir newsletters, ofertas ni regalos de Paso.</p>
+                <input type="checkbox" class="checkbox">
+            </div>
+            <button type="button" class="submit-button" onclick="showPasswordForm()">></button>
+            <p class="error-message" id="email-error-message">El correo electrónico no puede estar vacío</p>
+        </form>
+        
+        <form id="password-form" class="hidden">
+            <h1>Introduce una contraseña</h1>
+            <div class="password-requirements" id="password-requirements">
+                <p id="uppercase" class="invalid">Debe contener una letra mayúscula</p>
+                <p id="special" class="invalid">Debe contener un caracter especial</p>
+                <p id="number" class="invalid">Debe contener un número</p>
+                <p id="length" class="invalid">Debe tener más de ocho caracteres</p>
+            </div>
+            <input type="password" class="text" id="password" placeholder="Introduce tu contraseña" required>
+            <input type="password" class="text" id="confirm-password" placeholder="Repite tu contraseña" required>
+            <p class="error-message" id="password-error-message">Las contraseñas no pueden estar vacías</p>
+            <p class="error-message" id="error-message">Las contraseñas no coinciden</p>
+            <button type="button" class="submit-button" onclick="showProfileForm()">></button>
+        </form>
+        
+        <form id="profile-form" class="hidden">
+            <h1>Registro de Información Personal</h1>
+            <input type="text" class="text" id="first-name" placeholder="Nombre" required>
+            <input type="text" class="text" id="last-name" placeholder="Apellido Paterno" required>
+            <input type="text" class="text" id="mother-last-name" placeholder="Apellido Materno" required>
+            <label for="birthdate">Fecha de Nacimiento</label>
+            <input type="date" class="text" id="birthdate" required>
+            <label for="gender">Sexo</label>
+            <select class="text" id="gender" required>
+                <option value="male">Masculino</option>
+                <option value="female">Femenino</option>
+                <option value="other">Otro</option>
+            </select>
+            <p class="error-message" id="profile-error-message">Por favor, complete todos los campos</p>
+            <button type="submit" class="submit-button">></button>
+        </form>
+    </div>
     <img src="../img/mountains.svg" alt="Background Image" class="background-image">
     <div class="terms">
         <p>Al registrarte aceptas nuestros <a href="#">términos y condiciones</a></p>
     </div>
     <script>
+        const emailForm = document.getElementById('email-form');
+        const passwordForm = document.getElementById('password-form');
+        const profileForm = document.getElementById('profile-form');
+        const email = document.getElementById('email');
         const password = document.getElementById('password');
         const confirmPassword = document.getElementById('confirm-password');
+        const emailErrorMessage = document.getElementById('email-error-message');
+        const passwordErrorMessage = document.getElementById('password-error-message');
         const errorMessage = document.getElementById('error-message');
         const requirements = {
             uppercase: document.getElementById('uppercase'),
@@ -179,6 +250,29 @@
             number: document.getElementById('number'),
             length: document.getElementById('length'),
         };
+
+        function showPasswordForm() {
+            if (email.value.trim() === '') {
+                emailErrorMessage.style.display = 'block';
+                return;
+            } else {
+                emailErrorMessage.style.display = 'none';
+                emailForm.classList.add('hidden');
+                passwordForm.classList.remove('hidden');
+            }
+        }
+
+        function showProfileForm() {
+            if (password.value.trim() === '' || confirmPassword.value.trim() === '') {
+                passwordErrorMessage.style.display = 'block';
+                return;
+            } else {
+                passwordErrorMessage.style.display = 'none';
+                validatePassword();
+                passwordForm.classList.add('hidden');
+                profileForm.classList.remove('hidden');
+            }
+        }
 
         function validatePassword() {
             const value = password.value;
@@ -207,7 +301,6 @@
         password.addEventListener('input', validatePassword);
         confirmPassword.addEventListener('input', validateConfirmPassword);
     </script>
-    <script src="../pwa.js"></script>
 </body>
 
 </html>

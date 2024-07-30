@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Viaje</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="apple-touch-icon" href="../Icons/Logo-192.png">
+    <link rel="icon" href="../Icons/Logo.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#0037FF">
+    <meta name="description" content="Servicio de delivery de diversos productos">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Paso">
+    <link rel="apple-touch-icon" sizes="180x180" href="../Icons/Logo-192.png">
+    <link rel="apple-touch-startup-image" href="../Icons/Logo-512.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 5px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            font-size: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            z-index: 2;
+            margin-top: 50px;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 30px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #0037FF;
+        }
+
+        input.text, .container .date-input, .container .number-input, .container textarea {
+            width: 90%;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 22px;
+        }
+
+        .submit-button {
+            width: 50px;
+            height: 50px;
+            background-color: #0070FF;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 38px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            margin-top: 10px;
+            align-self: flex-end;
+        }
+
+        .counter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .counter button {
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            margin: 0 10px;
+            border-radius: 5px;
+        }
+
+        .counter input {
+            width: 60px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 22px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 16px;
+            display: none;
+            margin-bottom: 10px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        img.background-image {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            height: auto;
+            z-index: 1;
+            margin: 0;
+            padding: 0;
+        }
+
+        @media (max-width: 414px) {
+            .container {
+                width: 100%;
+            }
+
+            input.text, .container .date-input, .container .number-input, .container textarea {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="prevStep()">&lt;</button>
+    <form class="container" id="travel-form">
+        <div id="step-1">
+            <h2>¿Cuál es tu ciudad de destino?</h2>
+            <input type="text" class="text" id="destination" list="cities" placeholder="Ciudad de destino" required>
+            <datalist id="cities">
+                <option value="León">León</option>
+                <option value="Guanajuato">Guanajuato</option>
+                <option value="Irapuato">Irapuato</option>
+                <option value="Celaya">Celaya</option>
+                <option value="San Miguel de Allende">San Miguel de Allende</option>
+            </datalist>
+            <div class="error-message" id="destination-error">No se puede dejar vacío.</div>
+        </div>
+        <div id="step-2" style="display: none;">
+            <h2>¿Cuándo sales?</h2>
+            <input type="date" class="date-input" id="departure-date" required>
+            <div class="error-message" id="departure-date-error">Selecciona una fecha válida.</div>
+            <h2>¿Cuándo regresas?</h2>
+            <input type="date" class="date-input" id="return-date" required>
+            <div class="error-message" id="return-date-error">Selecciona una fecha válida y posterior a la de salida.</div>
+        </div>
+        <div id="step-3" style="display: none;">
+            <h2>¿Cuántos contenedores llevas?</h2>
+            <div class="counter">
+                <label>Frío: </label>
+                <button type="button" onclick="changeCount('cold', -1)">-</button>
+                <input type="number" class="number-input" id="cold-containers" value="0" min="0" readonly>
+                <button type="button" onclick="changeCount('cold', 1)">+</button>
+            </div>
+            <div class="counter">
+                <label>Caliente: </label>
+                <button type="button" onclick="changeCount('hot', -1)">-</button>
+                <input type="number" class="number-input" id="hot-containers" value="0" min="0" readonly>
+                <button type="button" onclick="changeCount('hot', 1)">+</button>
+            </div>
+        </div>
+        <div id="step-4" style="display: none;">
+            <h2>¿Gustas agregar comentarios o detalles de tu viaje?</h2>
+            <textarea class="text" id="comments" rows="4" placeholder="Escribe tus comentarios aquí..."></textarea>
+        </div>
+        <div id="step-5" style="display: none;">
+            <h2>Gracias por tu información</h2>
+            <p>¡Buen viaje!</p>
+            <button type="button" onclick="window.location.href='another_page.html'">Ir a otra página</button>
+        </div>
+        <button type="button" class="submit-button disabled" id="next-button" onclick="nextStep()" disabled>&gt;</button>
+    </form>
+    <img src="../img/mountains.svg" alt="Background Image" class="background-image">
+
+    <script>
+        let currentStep = 1;
+
+        document.getElementById('destination').addEventListener('input', function() {
+            validateDestination();
+        });
+
+        document.getElementById('departure-date').addEventListener('input', function() {
+            validateDepartureDate();
+        });
+
+        document.getElementById('return-date').addEventListener('input', function() {
+            validateReturnDate();
+        });
+
+        function validateDestination() {
+            const destinationInput = document.getElementById('destination');
+            const destinationError = document.getElementById('destination-error');
+            const nextButton = document.getElementById('next-button');
+            const validOptions = Array.from(document.querySelectorAll('#cities option')).map(option => option.value);
+
+            if (destinationInput.value.trim() === "" || !validOptions.includes(destinationInput.value)) {
+                destinationError.style.display = 'block';
+                nextButton.disabled = true;
+                nextButton.classList.add('disabled');
+                return false;
+            } else {
+                destinationError.style.display = 'none';
+                nextButton.disabled = false;
+                nextButton.classList.remove('disabled');
+                return true;
+            }
+        }
+
+        function validateDepartureDate() {
+            const departureDateInput = document.getElementById('departure-date');
+            const departureDateError = document.getElementById('departure-date-error');
+            const currentDate = new Date().toISOString().split('T')[0];
+
+            if (departureDateInput.value === "" || departureDateInput.value < currentDate) {
+                departureDateError.style.display = 'block';
+                return false;
+            } else {
+                departureDateError.style.display = 'none';
+                return true;
+            }
+        }
+
+        function validateReturnDate() {
+            const departureDateInput = document.getElementById('departure-date');
+            const returnDateInput = document.getElementById('return-date');
+            const returnDateError = document.getElementById('return-date-error');
+
+            if (returnDateInput.value === "" || returnDateInput.value < departureDateInput.value) {
+                returnDateError.style.display = 'block';
+                return false;
+            } else {
+                returnDateError.style.display = 'none';
+                return true;
+            }
+        }
+
+        function nextStep() {
+            if (!validateCurrentStep()) return;
+
+            document.getElementById(`step-${currentStep}`).style.display = 'none';
+            currentStep++;
+
+            if (currentStep <= 5) {
+                document.getElementById(`step-${currentStep}`).style.display = 'block';
+            }
+
+            if (currentStep === 5) {
+                document.getElementById('next-button').style.display = 'none';
+            }
+        }
+
+        function prevStep() {
+            if (currentStep === 1) return;
+
+            document.getElementById(`step-${currentStep}`).style.display = 'none';
+            currentStep--;
+
+            document.getElementById(`step-${currentStep}`).style.display = 'block';
+            const nextButton = document.getElementById('next-button');
+            nextButton.style.display = 'block';
+            nextButton.disabled = false;
+            nextButton.classList.remove('disabled');
+        }
+
+        function validateCurrentStep() {
+            switch (currentStep) {
+                case 1:
+                    return validateDestination();
+                case 2:
+                    const validDeparture = validateDepartureDate();
+                    const validReturn = validateReturnDate();
+                    return validDeparture && validReturn;
+                default:
+                    return true;
+            }
+        }
+
+        function changeCount(type, delta) {
+            const inputId = type === 'cold' ? 'cold-containers' : 'hot-containers';
+            const input = document.getElementById(inputId);
+            let value = parseInt(input.value);
+            value = Math.max(0, value + delta);
+            input.value = value;
+        }
+    </script>
+</body>
+</html>

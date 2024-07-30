@@ -10,6 +10,8 @@
             background-color: #f2f2f2;
             margin: 0;
             padding: 0;
+            position: relative;
+            padding-bottom: 70px; /* espacio para la barra de navegación */
         }
 
         .container {
@@ -107,6 +109,39 @@
                 padding: 10px;
             }
         }
+
+        .navbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #000;
+            text-align: center;
+            flex: 1;
+        }
+
+        .navbar a .icon {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .navbar a.active .icon {
+            color: #007bff;
+        }
+
+        .navbar a.active .label {
+            color: #007bff;
+        }
     </style>
 </head>
 <body>
@@ -174,6 +209,27 @@
             </div>
         </div>
     </div>
-    <script src="../pwa.js"></script>
+    <div class="navbar">
+        <a href="#" class="active">
+            <span class="icon">🏠</span>
+            <span class="label">Inicio</span>
+        </a>
+        <a href="new_travel.html">
+            <span class="icon">➕</span>
+            <span class="label">Agregar</span>
+        </a>
+        <a href="#">
+            <span class="icon">🔄</span>
+            <span class="label">Actualizar</span>
+        </a>
+        <a href="#">
+            <span class="icon">🧭</span>
+            <span class="label">Explorar</span>
+        </a>
+        <a href="profile.html">
+            <span class="icon">👤</span>
+            <span class="label">Perfil</span>
+        </a>
+    </div>
 </body>
 </html>
