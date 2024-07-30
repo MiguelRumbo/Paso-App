@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const profileForm = document.getElementById('profile-form');
 
     // Función para mostrar el formulario de contraseña
-    function showPasswordForm() {
+    window.showPasswordForm = function() {
         const email = document.getElementById('email').value;
         const emailErrorMessage = document.getElementById('email-error-message');
 
@@ -16,10 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
             emailForm.classList.add('hidden');
             passwordForm.classList.remove('hidden');
         }
-    }
+    };
 
     // Función para mostrar el formulario de perfil
-    function showProfileForm() {
+    window.showProfileForm = function() {
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirm-password').value;
         const passwordErrorMessage = document.getElementById('password-error-message');
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             passwordForm.classList.add('hidden');
             profileForm.classList.remove('hidden');
         }
-    }
+    };
 
     // Función para validar la contraseña
     function validatePassword() {
@@ -122,8 +122,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Agregar eventos a los botones
-    document.querySelector('.submit-button').addEventListener('click', showPasswordForm);
-    document.querySelector('.submit-button').addEventListener('click', showProfileForm);
+    document.getElementById('email-next-button').addEventListener('click', showPasswordForm);
+    document.getElementById('password-next-button').addEventListener('click', showProfileForm);
     document.getElementById('profile-form').addEventListener('submit', submitProfile);
 
     // Eventos para validar las contraseñas

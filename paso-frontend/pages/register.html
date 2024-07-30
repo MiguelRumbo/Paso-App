@@ -194,7 +194,7 @@
                 <p>No quiero recibir newsletters, ofertas ni regalos de Paso.</p>
                 <input type="checkbox" class="checkbox">
             </div>
-            <button type="button" class="submit-button" onclick="showPasswordForm()">></button>
+            <button type="button" class="submit-button" id="email-next-button">></button>
             <p class="error-message" id="email-error-message">El correo electrónico no puede estar vacío</p>
         </form>
 
@@ -210,7 +210,7 @@
             <input type="password" class="text" id="confirm-password" placeholder="Repite tu contraseña" required>
             <p class="error-message" id="password-error-message">Las contraseñas no pueden estar vacías</p>
             <p class="error-message" id="error-message">Las contraseñas no coinciden</p>
-            <button type="button" class="submit-button" onclick="showProfileForm()">></button>
+            <button type="button" class="submit-button" id="password-next-button">></button>
         </form>
 
         <form id="profile-form" class="hidden" onsubmit="submitProfile(event)">
