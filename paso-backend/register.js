@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert(`Error: ${result.error}`);
             } else {
                 alert(result.message);
-                window.location.href = 'login.html';
+                window.location.href = '../paso-frontend/pages/login.html';
             }
         } catch (error) {
             console.error('Error:', error);
