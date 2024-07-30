@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const passwordForm = document.getElementById('password-form');
     const profileForm = document.getElementById('profile-form');
 
-    // Función para mostrar el formulario de contraseña
     function showPasswordForm() {
+        console.log('showPasswordForm called'); // Agregar esto para depuración
         const email = document.getElementById('email').value;
         const emailErrorMessage = document.getElementById('email-error-message');
 
