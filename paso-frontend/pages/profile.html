@@ -117,24 +117,24 @@
 <body>
     <div class="container">
         <div class="profile-header">
-            <img src="https://via.placeholder.com/100" alt="Foto de perfil">
+            <img id="profile-picture" src="https://via.placeholder.com/100" alt="Foto de perfil">
             <div class="settings-icon">⚙️</div>
-            <h2>Armando Paredes</h2>
-            <p>Lorem ipsum, no sé, aquí va a ir la biografía de la persona c:</p>
+            <h2 id="profile-name">Nombre del Usuario</h2>
+            <p id="bio">Biografía del usuario</p>
             <button>Editar Perfil</button>
         </div>
         <div class="profile-stats">
             <div>
                 <p>Viajes completados</p>
-                <p>5</p>
+                <p id="travel-count">0</p>
             </div>
             <div>
                 <p>Reseñas</p>
-                <p>5</p>
+                <p id="review-count">0</p>
             </div>
             <div>
                 <p>Pedidos</p>
-                <p>5</p>
+                <p id="order-count">0</p>
             </div>
         </div>
     </div>
@@ -160,5 +160,32 @@
             <span class="label">Perfil</span>
         </a>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Hacer una solicitud GET a profile.php para obtener los datos del perfil
+            $.ajax({
+                url: 'profile.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.error) {
+                        alert('Error: ' + response.error);
+                    } else {
+                        // Actualizar el contenido del perfil con los datos recibidos
+                        $('#profile-picture').attr('src', response.user.profile_picture || 'https://via.placeholder.com/100');
+                        $('#profile-name').text(response.user.nombre + ' ' + response.user.apellido_paterno);
+                        $('#bio').text(response.user.bio || 'Sin biografía');
+                        $('#travel-count').text(response.travel_count);
+                        $('#review-count').text(response.review_count);
+                        $('#order-count').text(response.order_count);
+                    }
+                },
+                error: function() {
+                    alert('Error al cargar el perfil.');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
