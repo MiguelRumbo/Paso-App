@@ -22,6 +22,7 @@ async function getUserProfile(user_id) {
         
         if (data.error) {
             console.error(data.error);
+            document.getElementById('user-name').textContent = 'Error al cargar perfil';
             return;
         }
 
@@ -32,6 +33,7 @@ async function getUserProfile(user_id) {
         document.querySelector('.profile-header img').src = data.user.profile_picture || 'https://via.placeholder.com/100';
     } catch (error) {
         console.error('Error al cargar el perfil:', error);
+        document.getElementById('user-name').textContent = 'Error al cargar perfil';
     }
 }
 
@@ -42,12 +44,12 @@ function getCookie(name) {
 }
 
 async function loadProfile() {
-    // Obtener el ID del usuario desde las cookies
-    const user_id = getCookie('user_id');
+    const user_id = getCookie('user_id'); // Obtener el ID del usuario desde las cookies
     if (user_id) {
         await getUserProfile(user_id);
     } else {
         console.error("No se encontraron credenciales");
+        document.getElementById('user-name').textContent = 'No se encontraron credenciales';
     }
 }
 
