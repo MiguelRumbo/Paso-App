@@ -4,7 +4,8 @@ async function loadProfile() {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            credentials: 'include' // Asegúrate de enviar las cookies con la solicitud
         });
         
         if (!response.ok) {
