@@ -58,8 +58,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Función para manejar la presentación del perfil
-    async function submitProfile(event) {
+    window.submitProfile = async function(event) {
         event.preventDefault();
+
+        const birthdateInput = document.getElementById('birthdate').value;
+        const birthDate = new Date(birthdateInput);
+        const today = new Date();
+        const age = today.getFullYear() - birthDate.getFullYear() - (today < new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate()) ? 1 : 0);
 
         const data = {
             email: document.getElementById('email').value,
@@ -67,8 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
             nombre: document.getElementById('first-name').value,
             apellido_paterno: document.getElementById('last-name').value,
             apellido_materno: document.getElementById('mother-last-name').value,
-            age: document.getElementById('birthdate').value,
-            birthdate: document.getElementById('birthdate').value,
+            age: age, // Enviar la edad calculada
+            birthdate: birthdateInput,
             gender: document.getElementById('gender').value
         };
 
@@ -78,15 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert(`El campo ${key} es requerido.`);
                 return;
             }
-        }
-
-        // Validar edad
-        const today = new Date();
-        const birthDate = new Date(data.birthdate);
-        const age = today.getFullYear() - birthDate.getFullYear();
-        const monthDifference = today.getMonth() - birthDate.getMonth();
-        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
         }
 
         if (age < 18) {
