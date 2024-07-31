@@ -1,12 +1,8 @@
-// Function to handle form submission
-async function submitLogin(event) {
+document.getElementById('login-form').addEventListener('submit', async function(event) {
     event.preventDefault();
-    
-    const form = event.target;
-    const data = {
-        email: form.querySelector('#email').value,
-        password: form.querySelector('#password').value
-    };
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
     try {
         const response = await fetch('https://paso-app.ticsevn.com/login.php', {
@@ -14,28 +10,19 @@ async function submitLogin(event) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({ email, password })
         });
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
+        const data = await response.json();
 
-        const result = await response.json();
-
-        if (result.error) {
-            document.getElementById('error-message').textContent = result.error;
-            document.getElementById('error-message').style.display = 'block';
+        if (data.error) {
+            alert(data.error);
         } else {
-            // Redirigir a la página principal después del inicio de sesión exitoso
+            // Almacenar el ID de usuario en localStorage
+            localStorage.setItem('user_id', data.user_id);
             window.location.href = 'dashboard.html';
         }
     } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('error-message').textContent = 'Error de conexión. Inténtelo de nuevo más tarde.';
-        document.getElementById('error-message').style.display = 'block';
+        console.error('Error al iniciar sesión:', error);
     }
-}
-
-// Add event listener to the form
-document.getElementById('login-form').addEventListener('submit', submitLogin);
+});
