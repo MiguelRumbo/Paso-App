@@ -1,9 +1,10 @@
-async function loadProfile() {
+async function getUserProfile(user_id) {
     try {
         const response = await fetch('https://paso-app.ticsevn.com/profile.php', {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user_id}` // Enviamos el ID del usuario en el header de autorización
             },
             credentials: 'include' // Asegúrate de enviar las cookies con la solicitud
         });
@@ -31,6 +32,22 @@ async function loadProfile() {
         document.querySelector('.profile-header img').src = data.user.profile_picture || 'https://via.placeholder.com/100';
     } catch (error) {
         console.error('Error al cargar el perfil:', error);
+    }
+}
+
+function getCookie(name) {
+    let value = "; " + document.cookie;
+    let parts = value.split("; " + name + "=");
+    if (parts.length === 2) return parts.pop().split(";").shift();
+}
+
+async function loadProfile() {
+    // Obtener el ID del usuario desde las cookies
+    const user_id = getCookie('user_id');
+    if (user_id) {
+        await getUserProfile(user_id);
+    } else {
+        console.error("No se encontraron credenciales");
     }
 }
 
