@@ -1,53 +1,38 @@
-<?php
-session_start(); // Inicia la sesión
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
-header("Content-Type: application/json");
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('login-form');
 
-// Datos de conexión
-$servername = "127.0.0.1:3306";
-$username = "u872183139_dbAdmin";
-$password = '$Paso2024$';
-$dbname = "u872183139_paso_db";
+    loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault(); // Evita el envío del formulario
 
-// Crear conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
 
-// Comprobar la conexión
-if ($conn->connect_error) {
-    die(json_encode(["error" => "Error de conexión: " . $conn->connect_error]));
-}
+        try {
+            const response = await fetch('https://paso-app.ticsevn.com/login.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
 
-// Lógica para manejar la solicitud POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = json_decode(file_get_contents('php://input'), true);
-    
-    $email = $conn->real_escape_string($data['email']);
-    $password = $conn->real_escape_string($data['password']);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
 
-    $sql = "SELECT * FROM users WHERE email = '$email'";
-    $result = $conn->query($sql);
+            const data = await response.json();
 
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-        if (password_verify($password, $user['password'])) {
-            $_SESSION['user_id'] = $user['usuario_id']; // Guarda el ID de usuario en la sesión
-            
-            // Crear una cookie que expire en 30 días
-            setcookie('user_id', $user['usuario_id'], time() + (30 * 24 * 60 * 60), "/");
-            
-            echo json_encode([
-                "message" => "Inicio de sesión exitoso",
-                "user_id" => $user['usuario_id']
-            ]);
-        } else {
-            echo json_encode(["error" => "Contraseña incorrecta"]);
+            if (data.error) {
+                alert(data.error); // Muestra el error si ocurre
+            } else {
+                // Crear una cookie que expire en 30 días
+                document.cookie = `user_id=${data.user_id}; path=/; max-age=${30 * 24 * 60 * 60}`; // 30 días
+
+                // Redirigir al dashboard o a la página deseada
+                window.location.href = 'dashboard.html';
+            }
+        } catch (error) {
+            console.error('Error al iniciar sesión:', error);
         }
-    } else {
-        echo json_encode(["error" => "Usuario no encontrado"]);
-    }
-}
-
-$conn->close();
-?>
+    });
+});
