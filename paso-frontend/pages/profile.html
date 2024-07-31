@@ -117,24 +117,20 @@
 <body>
     <div class="container">
         <div class="profile-header">
-            <img id="profile-picture" src="https://via.placeholder.com/100" alt="Foto de perfil">
+            <img src="https://via.placeholder.com/100" alt="Foto de perfil">
             <div class="settings-icon">⚙️</div>
-            <h2 id="profile-name">Nombre del Usuario</h2>
-            <p id="bio">Biografía del usuario</p>
+            <h2 id="user-name">Armando Paredes</h2>
+            <p id="user-bio">Lorem ipsum, no sé, aquí va a ir la biografía de la persona c:</p>
             <button>Editar Perfil</button>
         </div>
         <div class="profile-stats">
             <div>
                 <p>Viajes completados</p>
-                <p id="travel-count">0</p>
-            </div>
-            <div>
-                <p>Reseñas</p>
-                <p id="review-count">0</p>
+                <p id="travel-count">5</p>
             </div>
             <div>
                 <p>Pedidos</p>
-                <p id="order-count">0</p>
+                <p id="order-count">5</p>
             </div>
         </div>
     </div>
@@ -160,32 +156,36 @@
             <span class="label">Perfil</span>
         </a>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
-        $(document).ready(function() {
-            // Hacer una solicitud GET a profile.php para obtener los datos del perfil
-            $.ajax({
-                url: 'profile.php',
-                method: 'GET',
-                dataType: 'json',
-                success: function(response) {
-                    if (response.error) {
-                        alert('Error: ' + response.error);
-                    } else {
-                        // Actualizar el contenido del perfil con los datos recibidos
-                        $('#profile-picture').attr('src', response.user.profile_picture || 'https://via.placeholder.com/100');
-                        $('#profile-name').text(response.user.nombre + ' ' + response.user.apellido_paterno);
-                        $('#bio').text(response.user.bio || 'Sin biografía');
-                        $('#travel-count').text(response.travel_count);
-                        $('#review-count').text(response.review_count);
-                        $('#order-count').text(response.order_count);
+        // Función para cargar los datos del perfil
+        async function loadProfile() {
+            try {
+                const response = await fetch('profile.php', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
                     }
-                },
-                error: function() {
-                    alert('Error al cargar el perfil.');
+                });
+                const data = await response.json();
+                
+                if (data.error) {
+                    console.error(data.error);
+                    return;
                 }
-            });
-        });
+
+                document.getElementById('user-name').textContent = data.user.nombre + ' ' + data.user.apellido_paterno;
+                document.getElementById('user-bio').textContent = data.user.bio || 'Sin biografía';
+                document.getElementById('travel-count').textContent = data.travel_count;
+                document.getElementById('order-count').textContent = data.order_count;
+                document.querySelector('.profile-header img').src = data.user.profile_picture || 'https://via.placeholder.com/100';
+            } catch (error) {
+                console.error('Error al cargar el perfil:', error);
+            }
+        }
+
+        // Cargar el perfil al cargar la página
+        window.onload = loadProfile;
     </script>
 </body>
 </html>
