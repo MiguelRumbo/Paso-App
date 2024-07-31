@@ -1,39 +1,38 @@
-document.getElementById('login-form').addEventListener('submit', async function(event) {
-    event.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('login-form');
 
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault(); // Evita el envío del formulario
 
-    try {
-        const response = await fetch('https://paso-app.ticsevn.com/login.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password })
-        });
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
 
-        const data = await response.json();
+        try {
+            const response = await fetch('https://paso-app.ticsevn.com/login.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
 
-        if (data.error) {
-            alert(data.error);
-        } else {
-            // Guardar el ID de usuario y correo electrónico en localStorage
-            localStorage.setItem('user_id', data.user_id);
-            localStorage.setItem('email', email);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
 
-            // Simular la creación de un archivo de texto
-            const blob = new Blob([data.user_id], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'credentials.txt';
-            a.click();
-            URL.revokeObjectURL(url);
+            const data = await response.json();
 
-            window.location.href = 'dashboard.html';
+            if (data.error) {
+                alert(data.error); // Muestra el error si ocurre
+            } else {
+                // Guardar el ID de usuario en una cookie
+                document.cookie = `user_id=${data.user_id}; path=/; max-age=${30 * 24 * 60 * 60}`; // 30 días
+
+                // Redirigir al dashboard o a la página deseada
+                window.location.href = 'dashboard.html';
+            }
+        } catch (error) {
+            console.error('Error al iniciar sesión:', error);
         }
-    } catch (error) {
-        console.error('Error al iniciar sesión:', error);
-    }
+    });
 });
