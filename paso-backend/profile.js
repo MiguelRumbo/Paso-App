@@ -1,3 +1,9 @@
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
 async function getUserProfile(user_id) {
     try {
         const response = await fetch('https://paso-app.ticsevn.com/profile.php', {
@@ -36,8 +42,8 @@ async function getUserProfile(user_id) {
 }
 
 async function loadProfile() {
-    // Obtener el ID del usuario desde localStorage
-    const user_id = localStorage.getItem('user_id');
+    // Obtener el ID del usuario desde la cookie
+    const user_id = getCookie('user_id');
     if (user_id) {
         await getUserProfile(user_id);
     } else {
