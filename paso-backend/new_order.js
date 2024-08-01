@@ -1,175 +1,153 @@
 let currentStep = 1;
 let productCount = 1;
 
-document.getElementById('order-city').addEventListener('input', validateOrderCity);
-document.getElementById('order-date').addEventListener('input', validateOrderDate);
+document.getElementById('order-city').addEventListener('input', function () {
+    validateOrderCity();
+});
 
-// Inicializar el primer producto
-document.getElementById('product-1')?.addEventListener('input', validateProducts);
+document.getElementById('product-1').addEventListener('input', function () {
+    validateProducts();
+});
+
+document.getElementById('order-date').addEventListener('input', function () {
+    validateOrderDate();
+});
 
 function validateOrderCity() {
     const orderCityInput = document.getElementById('order-city');
     const orderCityError = document.getElementById('order-city-error');
-    if (orderCityInput.value.trim() === '') {
+    const nextButton = document.getElementById('next-button');
+    const validOptions = Array.from(document.querySelectorAll('#cities option')).map(option => option.value);
+
+    if (orderCityInput.value.trim() === '' || !validOptions.includes(orderCityInput.value.trim())) {
         orderCityError.style.display = 'block';
-        document.getElementById('next-button').disabled = true;
+        nextButton.disabled = true;
     } else {
         orderCityError.style.display = 'none';
-        document.getElementById('next-button').disabled = false;
+        nextButton.disabled = false;
     }
 }
 
 function validateProducts() {
-    const productInputs = document.querySelectorAll('input[id^="product-"]');
+    const productInputs = document.querySelectorAll('#products input[type="text"]');
     const productError = document.getElementById('product-error');
-    let allValid = true;
+    const nextButton = document.getElementById('next-button');
 
-    productInputs.forEach(input => {
-        if (input.value.trim() === '') {
-            allValid = false;
-        }
-    });
+    const valid = Array.from(productInputs).every(input => input.value.trim() !== '');
 
-    if (!allValid) {
-        productError.style.display = 'block';
-        document.getElementById('next-button').disabled = true;
-    } else {
+    if (valid) {
         productError.style.display = 'none';
-        document.getElementById('next-button').disabled = false;
+        nextButton.disabled = false;
+    } else {
+        productError.style.display = 'block';
+        nextButton.disabled = true;
     }
 }
 
 function validateOrderDate() {
     const orderDateInput = document.getElementById('order-date');
     const orderDateError = document.getElementById('order-date-error');
-    if (orderDateInput.value.trim() === '') {
+    const nextButton = document.getElementById('next-button');
+
+    if (orderDateInput.value === '') {
         orderDateError.style.display = 'block';
-        document.getElementById('next-button').disabled = true;
+        nextButton.disabled = true;
     } else {
         orderDateError.style.display = 'none';
-        document.getElementById('next-button').disabled = false;
-    }
-}
-
-function addProduct() {
-    productCount++;
-    const productsDiv = document.getElementById('products');
-    const newProductDiv = document.createElement('div');
-    newProductDiv.classList.add('product-item');
-    newProductDiv.innerHTML = `
-        <label for="product-${productCount}">Producto ${productCount}:</label>
-        <input type="text" class="text" id="product-${productCount}" placeholder="Nombre del producto" required>
-    `;
-    productsDiv.appendChild(newProductDiv);
-
-    // Agregar el listener de input al nuevo producto
-    document.getElementById(`product-${productCount}`).addEventListener('input', validateProducts);
-}
-
-function nextStep() {
-    const currentStepDiv = document.getElementById(`step-${currentStep}`);
-    const nextStepDiv = document.getElementById(`step-${currentStep + 1}`);
-
-    if (currentStep === 1 && !validateOrderCity()) {
-        return;
-    }
-    if (currentStep === 2 && !validateProducts()) {
-        return;
-    }
-    if (currentStep === 3 && !validateOrderDate()) {
-        return;
-    }
-
-    if (nextStepDiv) {
-        currentStepDiv.style.display = 'none';
-        nextStepDiv.style.display = 'block';
-        currentStep++;
-        updateButtonState();
-    }
-
-    if (currentStep === 5) {
-        submitOrder();
+        nextButton.disabled = false;
     }
 }
 
 function prevStep() {
     if (currentStep > 1) {
-        const currentStepDiv = document.getElementById(`step-${currentStep}`);
-        const prevStepDiv = document.getElementById(`step-${currentStep - 1}`);
-        currentStepDiv.style.display = 'none';
-        prevStepDiv.style.display = 'block';
         currentStep--;
-        updateButtonState();
+        showStep(currentStep);
     }
 }
 
-function updateButtonState() {
-    const nextButton = document.getElementById('next-button');
-    const prevButton = document.querySelector('.back-button');
-
-    if (currentStep === 1) {
-        prevButton.style.display = 'none';
-    } else {
-        prevButton.style.display = 'block';
+function nextStep() {
+    if (currentStep < 5) {
+        currentStep++;
+        showStep(currentStep);
     }
-
     if (currentStep === 5) {
-        nextButton.style.display = 'none';
-    } else {
-        nextButton.style.display = 'block';
-        validateCurrentStep();
+        sendOrderData();
     }
 }
 
-function validateCurrentStep() {
-    if (currentStep === 1) {
+function showStep(step) {
+    const steps = document.querySelectorAll('.container > div');
+    steps.forEach((stepDiv, index) => {
+        stepDiv.style.display = (index + 1 === step) ? 'block' : 'none';
+    });
+
+    if (step === 1) {
         validateOrderCity();
-    } else if (currentStep === 2) {
+    } else if (step === 2) {
         validateProducts();
-    } else if (currentStep === 3) {
+    } else if (step === 3) {
         validateOrderDate();
     } else {
         document.getElementById('next-button').disabled = false;
     }
 }
 
-function submitOrder() {
-    const orderCity = document.getElementById('order-city').value.trim();
-    const products = [];
-    const productInputs = document.querySelectorAll('input[id^="product-"]');
-    productInputs.forEach(input => products.push(input.value.trim()));
-    const orderDate = document.getElementById('order-date').value.trim();
-    const comments = document.getElementById('comments').value.trim();
+function addProduct() {
+    productCount++;
+    const productContainer = document.getElementById('products');
+    const newProductDiv = document.createElement('div');
+    newProductDiv.classList.add('product-item');
+    newProductDiv.innerHTML = `
+        <label for="product-${productCount}">Producto ${productCount}:</label>
+        <input type="text" class="text" id="product-${productCount}" placeholder="Nombre del producto" required>
+    `;
+    productContainer.appendChild(newProductDiv);
 
-    const orderData = {
-        orderCity,
-        products,
-        orderDate,
-        comments
+    document.getElementById(`product-${productCount}`).addEventListener('input', validateProducts);
+}
+
+function sendOrderData() {
+    const productInputs = document.querySelectorAll('#products input[type="text"]');
+    const productNames = Array.from(productInputs).map(input => input.value.trim());
+
+    const data = {
+        order_city: document.getElementById('order-city').value.trim(),
+        products: productNames,
+        order_date: document.getElementById('order-date').value,
+        comments: document.getElementById('comments').value.trim()
     };
 
     fetch('https://paso-app.ticsevn.com/new_order.php', {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${getCookie('token')}`
+            'Authorization': 'Bearer ' + getCookie('token')
         },
-        body: JSON.stringify(orderData)
+        body: JSON.stringify(data)
     })
     .then(response => response.json())
     .then(data => {
+        console.log(data);
         if (data.success) {
-            console.log('Order submitted successfully');
-            window.location.href = 'thank_you.html'; // Redirigir a la página de agradecimiento
+            window.location.href = 'thank_you.html';
         } else {
-            console.error('Error submitting order', data.message);
+            alert('Error al enviar el pedido: ' + data.message);
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error al enviar el pedido: ' + error.message);
+    });
 }
 
 function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
+    let cookieArr = document.cookie.split(";");
+    for (let i = 0; i < cookieArr.length; i++) {
+        let cookiePair = cookieArr[i].split("=");
+        if (name == cookiePair[0].trim()) {
+            return decodeURIComponent(cookiePair[1]);
+        }
+    }
+    return null;
 }
