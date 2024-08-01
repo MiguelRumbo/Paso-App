@@ -66,9 +66,6 @@ function prevStep() {
 }
 
 function nextStep() {
-    if (currentStep === 2) {
-        addProductInputsToForm();
-    }
     if (currentStep < 5) {
         currentStep++;
         showStep(currentStep);
@@ -107,38 +104,6 @@ function addProduct() {
     productContainer.appendChild(newProductDiv);
 
     document.getElementById(`product-${productCount}`).addEventListener('input', validateProducts);
-}
-
-function addProductInputsToForm() {
-    const productInputs = document.querySelectorAll('#products input[type="text"]');
-    const productNames = Array.from(productInputs).map(input => input.value.trim());
-    const formData = new FormData();
-    formData.append('order_city', document.getElementById('order-city').value.trim());
-    formData.append('products', JSON.stringify(productNames));
-    formData.append('order_date', document.getElementById('order-date').value);
-    formData.append('comments', document.getElementById('comments').value.trim());
-
-    fetch('https://paso-app.ticsevn.com/new_order.php', {
-        method: 'POST',
-        body: formData,
-        credentials: 'include',
-        headers: {
-            'Authorization': 'Bearer ' + getCookie('token')
-        }
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            if (data.success) {
-                window.location.href = 'thank_you.html';
-            } else {
-                alert('Error al enviar el pedido: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error al enviar el pedido: ' + error.message);
-        });
 }
 
 function sendOrderData() {
