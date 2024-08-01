@@ -101,6 +101,14 @@ function prevStep() {
 
 function updateButtonState() {
     const nextButton = document.getElementById('next-button');
+    const prevButton = document.querySelector('.back-button');
+
+    if (currentStep === 1) {
+        prevButton.style.display = 'none';
+    } else {
+        prevButton.style.display = 'block';
+    }
+
     if (currentStep === 5) {
         nextButton.style.display = 'none';
     } else {
