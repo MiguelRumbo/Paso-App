@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Pedido</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="apple-touch-icon" href="../Icons/Logo-192.png">
+    <link rel="icon" href="../Icons/Logo.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#0037FF">
+    <meta name="description" content="Servicio de delivery de diversos productos">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Paso">
+    <link rel="apple-touch-icon" sizes="180x180" href="../Icons/Logo-192.png">
+    <link rel="apple-touch-startup-image" href="../Icons/Logo-512.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 5px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            font-size: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            z-index: 2;
+            margin-top: 50px;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 30px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #0037FF;
+        }
+
+        input.text,
+        .container .date-input,
+        .container .number-input,
+        .container textarea {
+            width: 90%;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 22px;
+        }
+
+        .submit-button {
+            width: 50px;
+            height: 50px;
+            background-color: #0070FF;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 38px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            margin-top: 10px;
+            align-self: flex-end;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 16px;
+            display: none;
+            margin-bottom: 10px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        img.background-image {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            height: auto;
+            z-index: 1;
+            margin: 0;
+            padding: 0;
+        }
+
+        @media (max-width: 414px) {
+            .container {
+                width: 100%;
+            }
+
+            input.text,
+            .container .date-input,
+            .container .number-input,
+            .container textarea {
+                width: 80%;
+            }
+        }
+
+        .navbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 10;
+            /* Asegúrate de que este z-index sea mayor que el de otros elementos */
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #000;
+            text-align: center;
+            flex: 1;
+        }
+
+        .navbar a .icon {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .navbar a.active .icon {
+            color: #007bff;
+        }
+
+        .navbar a.active .label {
+            color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="back-button" onclick="prevStep()">&lt;</button>
+    <form class="container" id="order-form">
+        <div id="step-1">
+            <h2>¿Desde qué ciudad deseas hacer el pedido?</h2>
+            <input type="text" class="text" id="order-city" list="cities" placeholder="Ciudad de pedido" required>
+            <datalist id="cities">
+                <option value="León">León</option>
+                <option value="Guanajuato">Guanajuato</option>
+                <option value="Irapuato">Irapuato</option>
+                <option value="Celaya">Celaya</option>
+                <option value="San Miguel de Allende">San Miguel de Allende</option>
+            </datalist>
+            <div class="error-message" id="order-city-error">No se puede dejar vacío.</div>
+        </div>
+        <div id="step-2" style="display: none;">
+            <h2>¿Qué productos deseas pedir?</h2>
+            <div id="products">
+                <div class="product-item">
+                    <label for="product-1">Producto 1:</label>
+                    <input type="text" class="text" id="product-1" placeholder="Nombre del producto" required>
+                </div>
+            </div>
+            <button type="button" onclick="addProduct()">Agregar otro producto</button>
+            <div class="error-message" id="product-error">Por favor, agrega al menos un producto.</div>
+        </div>
+        <div id="step-3" style="display: none;">
+            <h2>¿Cuándo deseas recibir tu pedido?</h2>
+            <input type="date" class="date-input" id="order-date" required>
+            <div class="error-message" id="order-date-error">Selecciona una fecha válida.</div>
+        </div>
+        <div id="step-4" style="display: none;">
+            <h2>¿Gustas agregar comentarios o detalles adicionales?</h2>
+            <textarea class="text" id="comments" rows="4" placeholder="Escribe tus comentarios aquí..."></textarea>
+        </div>
+        <div id="step-5" style="display: none;">
+            <h2>Gracias por tu pedido</h2>
+            <p>¡Tu pedido está en proceso!</p>
+            <button type="button" onclick="window.location.href='dashboard.html'">Ir a otra página</button>
+        </div>
+        <button type="button" class="submit-button disabled" id="next-button" onclick="nextStep()" disabled>&gt;</button>
+    </form>
+    <div class="navbar">
+        <a href="#" class="active">
+            <span class="icon">🏠</span>
+            <span class="label">Inicio</span>
+        </a>
+        <a href="new.html">
+            <span class="icon">➕</span>
+            <span class="label">Agregar</span>
+        </a>
+        <a href="#">
+            <span class="icon">🔄</span>
+            <span class="label">Actualizar</span>
+        </a>
+        <a href="#">
+            <span class="icon">🧭</span>
+            <span class="label">Explorar</span>
+        </a>
+        <a href="profile.html">
+            <span class="icon">👤</span>
+            <span class="label">Perfil</span>
+        </a>
+    </div>
+    <img src="../img/mountains.svg" alt="Background Image" class="background-image">
+    <script src="../../paso-backend/new_order.js"></script>
+</body>
+
+</html>
