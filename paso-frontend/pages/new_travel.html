@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,7 +60,10 @@
             color: #0037FF;
         }
 
-        input.text, .container .date-input, .container .number-input, .container textarea {
+        input.text,
+        .container .date-input,
+        .container .number-input,
+        .container textarea {
             width: 90%;
             padding: 15px;
             margin-bottom: 10px;
@@ -144,18 +148,57 @@
                 width: 100%;
             }
 
-            input.text, .container .date-input, .container .number-input, .container textarea {
+            input.text,
+            .container .date-input,
+            .container .number-input,
+            .container textarea {
                 width: 80%;
             }
         }
+
+        .navbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 10;
+            /* Asegúrate de que este z-index sea mayor que el de otros elementos */
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #000;
+            text-align: center;
+            flex: 1;
+        }
+
+        .navbar a .icon {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .navbar a.active .icon {
+            color: #007bff;
+        }
+
+        .navbar a.active .label {
+            color: #007bff;
+        }
     </style>
 </head>
+
 <body>
     <button class="back-button" onclick="prevStep()">&lt;</button>
     <form class="container" id="travel-form">
         <div id="step-1">
-            <h2>¿Cuál es tu ciudad de destino?</h2>
-            <input type="text" class="text" id="destination" list="cities" placeholder="Ciudad de destino" required>
+            <h2>¿Cuál es tu ciudad de partida?</h2>
+            <input type="text" class="text" id="departure-city" list="cities" placeholder="Ciudad de partida" required>
             <datalist id="cities">
                 <option value="León">León</option>
                 <option value="Guanajuato">Guanajuato</option>
@@ -163,17 +206,23 @@
                 <option value="Celaya">Celaya</option>
                 <option value="San Miguel de Allende">San Miguel de Allende</option>
             </datalist>
-            <div class="error-message" id="destination-error">No se puede dejar vacío.</div>
+            <div class="error-message" id="departure-city-error">No se puede dejar vacío.</div>
         </div>
         <div id="step-2" style="display: none;">
+            <h2>¿Cuál es tu ciudad de destino?</h2>
+            <input type="text" class="text" id="destination" list="cities" placeholder="Ciudad de destino" required>
+            <div class="error-message" id="destination-error">No se puede dejar vacío.</div>
+        </div>
+        <div id="step-3" style="display: none;">
             <h2>¿Cuándo sales?</h2>
             <input type="date" class="date-input" id="departure-date" required>
             <div class="error-message" id="departure-date-error">Selecciona una fecha válida.</div>
             <h2>¿Cuándo regresas?</h2>
             <input type="date" class="date-input" id="return-date" required>
-            <div class="error-message" id="return-date-error">Selecciona una fecha válida y posterior a la de salida.</div>
+            <div class="error-message" id="return-date-error">Selecciona una fecha válida y posterior a la de salida.
+            </div>
         </div>
-        <div id="step-3" style="display: none;">
+        <div id="step-4" style="display: none;">
             <h2>¿Cuántos contenedores llevas?</h2>
             <div class="counter">
                 <label>Frío: </label>
@@ -188,129 +237,42 @@
                 <button type="button" onclick="changeCount('hot', 1)">+</button>
             </div>
         </div>
-        <div id="step-4" style="display: none;">
+        <div id="step-5" style="display: none;">
             <h2>¿Gustas agregar comentarios o detalles de tu viaje?</h2>
             <textarea class="text" id="comments" rows="4" placeholder="Escribe tus comentarios aquí..."></textarea>
         </div>
-        <div id="step-5" style="display: none;">
+        <div id="step-6" style="display: none;">
             <h2>Gracias por tu información</h2>
             <p>¡Buen viaje!</p>
-            <button type="button" onclick="window.location.href='another_page.html'">Ir a otra página</button>
+            <button type="button" onclick="window.location.href='dashboard.html'">Ir a otra página</button>
         </div>
-        <button type="button" class="submit-button disabled" id="next-button" onclick="nextStep()" disabled>&gt;</button>
+        <button type="button" class="submit-button disabled" id="next-button" onclick="nextStep()"
+            disabled>&gt;</button>
     </form>
+    <div class="navbar">
+        <a href="#" class="active">
+            <span class="icon">🏠</span>
+            <span class="label">Inicio</span>
+        </a>
+        <a href="new.html">
+            <span class="icon">➕</span>
+            <span class="label">Agregar</span>
+        </a>
+        <a href="#">
+            <span class="icon">🔄</span>
+            <span class="label">Actualizar</span>
+        </a>
+        <a href="#">
+            <span class="icon">🧭</span>
+            <span class="label">Explorar</span>
+        </a>
+        <a href="profile.html">
+            <span class="icon">👤</span>
+            <span class="label">Perfil</span>
+        </a>
+    </div>
     <img src="../img/mountains.svg" alt="Background Image" class="background-image">
-
-    <script>
-        let currentStep = 1;
-
-        document.getElementById('destination').addEventListener('input', function() {
-            validateDestination();
-        });
-
-        document.getElementById('departure-date').addEventListener('input', function() {
-            validateDepartureDate();
-        });
-
-        document.getElementById('return-date').addEventListener('input', function() {
-            validateReturnDate();
-        });
-
-        function validateDestination() {
-            const destinationInput = document.getElementById('destination');
-            const destinationError = document.getElementById('destination-error');
-            const nextButton = document.getElementById('next-button');
-            const validOptions = Array.from(document.querySelectorAll('#cities option')).map(option => option.value);
-
-            if (destinationInput.value.trim() === "" || !validOptions.includes(destinationInput.value)) {
-                destinationError.style.display = 'block';
-                nextButton.disabled = true;
-                nextButton.classList.add('disabled');
-                return false;
-            } else {
-                destinationError.style.display = 'none';
-                nextButton.disabled = false;
-                nextButton.classList.remove('disabled');
-                return true;
-            }
-        }
-
-        function validateDepartureDate() {
-            const departureDateInput = document.getElementById('departure-date');
-            const departureDateError = document.getElementById('departure-date-error');
-            const currentDate = new Date().toISOString().split('T')[0];
-
-            if (departureDateInput.value === "" || departureDateInput.value < currentDate) {
-                departureDateError.style.display = 'block';
-                return false;
-            } else {
-                departureDateError.style.display = 'none';
-                return true;
-            }
-        }
-
-        function validateReturnDate() {
-            const departureDateInput = document.getElementById('departure-date');
-            const returnDateInput = document.getElementById('return-date');
-            const returnDateError = document.getElementById('return-date-error');
-
-            if (returnDateInput.value === "" || returnDateInput.value < departureDateInput.value) {
-                returnDateError.style.display = 'block';
-                return false;
-            } else {
-                returnDateError.style.display = 'none';
-                return true;
-            }
-        }
-
-        function nextStep() {
-            if (!validateCurrentStep()) return;
-
-            document.getElementById(`step-${currentStep}`).style.display = 'none';
-            currentStep++;
-
-            if (currentStep <= 5) {
-                document.getElementById(`step-${currentStep}`).style.display = 'block';
-            }
-
-            if (currentStep === 5) {
-                document.getElementById('next-button').style.display = 'none';
-            }
-        }
-
-        function prevStep() {
-            if (currentStep === 1) return;
-
-            document.getElementById(`step-${currentStep}`).style.display = 'none';
-            currentStep--;
-
-            document.getElementById(`step-${currentStep}`).style.display = 'block';
-            const nextButton = document.getElementById('next-button');
-            nextButton.style.display = 'block';
-            nextButton.disabled = false;
-            nextButton.classList.remove('disabled');
-        }
-
-        function validateCurrentStep() {
-            switch (currentStep) {
-                case 1:
-                    return validateDestination();
-                case 2:
-                    const validDeparture = validateDepartureDate();
-                    const validReturn = validateReturnDate();
-                    return validDeparture && validReturn;
-                default:
-                    return true;
-            }
-        }
-
-        function changeCount(type, delta) {
-            const inputId = type === 'cold' ? 'cold-containers' : 'hot-containers';
-            const input = document.getElementById(inputId);
-            let value = parseInt(input.value);
-            value = Math.max(0, value + delta);
-            input.value = value;
-        }
-    </script>
+    <script src="../../paso-backend/new_travel.js"></script>
 </body>
+
 </html>

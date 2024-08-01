@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paso</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="apple-touch-icon" href="../Icons/Logo-192.png">
+    <link rel="icon" href="../Icons/Logo.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#0037FF">
+    <meta name="description" content="Servicio de delivery de diversos productos">
+
+    <!-- Metadatos específicos para iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Paso">
+    <link rel="apple-touch-icon" sizes="180x180" href="../Icons/Logo-192.png">
+    <link rel="apple-touch-startup-image" href="../Icons/Logo-512.png">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+            overflow: hidden;
+            /* Evitar barras de desplazamiento */
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border: 5px solid black;
+            /* Borde estándar */
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: calc(30px + 2vh);
+            text-align: center;
+            margin-bottom: 20px;
+            /* Reducir margen inferior */
+        }
+
+        .button {
+            display: block;
+            width: calc(300px - 2vw);
+            height: calc(45px + 2vh);
+            margin: 10px 0;
+            /* Reducir margen inferior y superior */
+            padding: 10px;
+            border: none;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .crear-cuenta-btn {
+            background-color: #FFA500;
+        }
+
+        .iniciar-sesion-btn {
+            background-color: #0000FF;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container {
+                border-width: 2px;
+                /* Borde más delgado para pantallas pequeñas */
+            }
+
+            .button {
+                width: calc(100% - 4vw);
+                /* Ajustar el tamaño de los botones para pantallas pequeñas */
+                height: calc(40px + 2vh);
+            }
+
+            h1 {
+                font-size: calc(25px + 2vh);
+                /* Ajustar el tamaño del texto para pantallas pequeñas */
+                margin-bottom: 15px;
+                /* Reducir margen inferior */
+            }
+        }
+
+        .navbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 10;
+            /* Asegúrate de que este z-index sea mayor que el de otros elementos */
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #000;
+            text-align: center;
+            flex: 1;
+        }
+
+        .navbar a .icon {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .navbar a.active .icon {
+            color: #007bff;
+        }
+
+        .navbar a.active .label {
+            color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <button class="button crear-cuenta-btn" onclick="window.location.href='new_travel.html'">Nuevo Viaje</button>
+        <button class="button iniciar-sesion-btn" onclick="window.location.href=''">Nuevo Pedido</button>
+    </div>
+    <div class="navbar">
+        <a href="#" class="active">
+            <span class="icon">🏠</span>
+            <span class="label">Inicio</span>
+        </a>
+        <a href="#">
+            <span class="icon">➕</span>
+            <span class="label">Agregar</span>
+        </a>
+        <a href="#">
+            <span class="icon">🔄</span>
+            <span class="label">Actualizar</span>
+        </a>
+        <a href="#">
+            <span class="icon">🧭</span>
+            <span class="label">Explorar</span>
+        </a>
+        <a href="profile.html">
+            <span class="icon">👤</span>
+            <span class="label">Perfil</span>
+        </a>
+    </div>
+    <script src="../pwa.js"></script>
+</body>
+
+</html>
