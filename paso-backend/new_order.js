@@ -136,7 +136,12 @@ function sendOrderData() {
         },
         body: new URLSearchParams(data).toString() // Convertir datos a formato URL-encoded
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.success) {
             window.location.href = 'thank_you.html';
@@ -149,6 +154,7 @@ function sendOrderData() {
         alert('Error al enviar el pedido: ' + error.message);
     });
 }
+
 
 
 function getCookie(name) {
