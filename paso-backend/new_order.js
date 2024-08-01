@@ -22,9 +22,11 @@ function validateOrderCity() {
     if (orderCityInput.value.trim() === '' || !validOptions.includes(orderCityInput.value.trim())) {
         orderCityError.style.display = 'block';
         nextButton.disabled = true;
+        nextButton.classList.add('disabled');
     } else {
         orderCityError.style.display = 'none';
         nextButton.disabled = false;
+        nextButton.classList.remove('disabled');
     }
 }
 
@@ -38,23 +40,23 @@ function validateProducts() {
     if (valid) {
         productError.style.display = 'none';
         nextButton.disabled = false;
+        nextButton.classList.remove('disabled');
     } else {
         productError.style.display = 'block';
         nextButton.disabled = true;
+        nextButton.classList.add('disabled');
     }
 }
 
 function validateOrderDate() {
     const orderDateInput = document.getElementById('order-date');
     const orderDateError = document.getElementById('order-date-error');
-    const nextButton = document.getElementById('next-button');
+    const currentDate = new Date().toISOString().split('T')[0];
 
-    if (orderDateInput.value === '') {
+    if (orderDateInput.value === '' || orderDateInput.value < currentDate) {
         orderDateError.style.display = 'block';
-        nextButton.disabled = true;
     } else {
         orderDateError.style.display = 'none';
-        nextButton.disabled = false;
     }
 }
 
@@ -128,7 +130,6 @@ function sendOrderData() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         if (data.success) {
             window.location.href = 'thank_you.html';
         } else {
@@ -142,12 +143,7 @@ function sendOrderData() {
 }
 
 function getCookie(name) {
-    let cookieArr = document.cookie.split(";");
-    for (let i = 0; i < cookieArr.length; i++) {
-        let cookiePair = cookieArr[i].split("=");
-        if (name == cookiePair[0].trim()) {
-            return decodeURIComponent(cookiePair[1]);
-        }
-    }
-    return null;
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
 }
