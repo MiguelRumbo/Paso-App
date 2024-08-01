@@ -112,6 +112,14 @@ function sendOrderData() {
     const productInputs = document.querySelectorAll('#products input[type="text"]');
     const productNames = Array.from(productInputs).map(input => input.value.trim());
 
+    // Asegúrate de que todos los campos están correctamente poblados
+    if (!document.getElementById('order-city').value.trim() ||
+        !document.getElementById('order-date').value ||
+        productNames.length === 0) {
+        alert('Por favor, completa todos los campos.');
+        return;
+    }
+
     const data = {
         order_city: document.getElementById('order-city').value.trim(),
         products: productNames,
@@ -126,7 +134,7 @@ function sendOrderData() {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': 'Bearer ' + getCookie('token')
         },
-        body: new URLSearchParams(data)
+        body: new URLSearchParams(data).toString() // Convertir datos a formato URL-encoded
     })
     .then(response => response.json())
     .then(data => {
@@ -141,6 +149,7 @@ function sendOrderData() {
         alert('Error al enviar el pedido: ' + error.message);
     });
 }
+
 
 function getCookie(name) {
     const value = `; ${document.cookie}`;
