@@ -35,22 +35,6 @@
             background-color: #ccc;
             display: block;
             margin: 0 auto;
-            position: relative;
-        }
-
-        .profile-header .upload-icon {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            background-color: #007bff;
-            color: white;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
         }
 
         .profile-header h2 {
@@ -77,7 +61,6 @@
             background-color: #eee;
             padding: 10px;
             border-radius: 10px;
-            margin-bottom: 20px;
         }
 
         .profile-stats div {
@@ -86,33 +69,6 @@
 
         .profile-stats div p {
             margin: 5px 0;
-        }
-
-        .wallet-section {
-            background-color: #eee;
-            padding: 10px;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .wallet-section button {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .wallet-section button span {
-            margin-left: 10px;
         }
 
         .navbar {
@@ -156,69 +112,16 @@
             color: #666;
             cursor: pointer;
         }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 400px;
-            border-radius: 10px;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .modal-content input[type="file"] {
-            display: block;
-            margin: 10px 0;
-        }
-
-        .modal-content textarea {
-            width: 100%;
-            height: 100px;
-            margin: 10px 0;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="profile-header">
-            <img id="profile-picture" src="https://via.placeholder.com/100" alt="Foto de perfil">
-            <div class="upload-icon" onclick="document.getElementById('uploadModal').style.display='block'">📷</div>
+            <img src="https://via.placeholder.com/100" alt="Foto de perfil">
             <div class="settings-icon">⚙️</div>
             <h2 id="user-name"></h2>
             <p id="user-bio"></p>
-            <button onclick="document.getElementById('editModal').style.display='block'">Editar Perfil</button>
+            <button>Editar Perfil</button>
         </div>
         <div class="profile-stats">
             <div>
@@ -229,17 +132,6 @@
                 <p>Pedidos</p>
                 <p id="order-count">5</p>
             </div>
-        </div>
-        <div class="wallet-section">
-            <h3>Billetera Virtual</h3>
-            <button onclick="alert('Agregar método de pago')">
-                Agregar método de pago
-                <span>➡️</span>
-            </button>
-            <button onclick="alert('Agregar direcciones')">
-                Agregar direcciones
-                <span>➡️</span>
-            </button>
         </div>
     </div>
     <div class="navbar">
@@ -264,96 +156,6 @@
             <span class="label">Perfil</span>
         </a>
     </div>
-
-    <!-- Modal para editar perfil -->
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="document.getElementById('editModal').style.display='none'">&times;</span>
-            <h2>Editar Perfil</h2>
-            <textarea id="editBio" placeholder="Escribe tu nueva biografía..."></textarea>
-            <button onclick="updateProfile()">Guardar cambios</button>
-        </div>
-    </div>
-
-    <!-- Modal para subir fotografía -->
-    <div id="uploadModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="document.getElementById('uploadModal').style.display='none'">&times;</span>
-            <h2>Subir nueva fotografía</h2>
-            <input type="file" id="uploadPicture" accept="image/*" onchange="validateImageSize(event)">
-            <button onclick="uploadPicture()">Subir</button>
-        </div>
-    </div>
-
     <script src="../../paso-backend/profile.js"></script>
-    <script>
-        // Obtener el ID del usuario desde la cookie
-        const user_id = getCookie('user_id');
-        if (user_id) {
-            getUserProfile(user_id);
-        } else {
-            console.error("No se encontraron credenciales");
-            window.location.href = 'login.html';
-        }
-
-        // Validar tamaño de imagen
-        function validateImageSize(event) {
-            const file = event.target.files[0];
-            if (file.size > 5 * 1024 * 1024) {
-                alert('El tamaño de la imagen no debe superar los 5 MB');
-                event.target.value = '';
-            }
-        }
-
-        // Función para actualizar el perfil
-        async function updateProfile() {
-            const bio = document.getElementById('editBio').value;
-
-            const response = await fetch('https://paso-app.ticsevn.com/update_profile.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${user_id}`
-                },
-                body: JSON.stringify({ bio })
-            });
-
-            const data = await response.json();
-            if (data.success) {
-                document.getElementById('user-bio').textContent = bio;
-                document.getElementById('editModal').style.display = 'none';
-            } else {
-                alert('Error al actualizar el perfil');
-            }
-        }
-
-        // Función para subir fotografía
-        async function uploadPicture() {
-            const input = document.getElementById('uploadPicture');
-            if (input.files.length === 0) {
-                alert('Por favor selecciona una imagen');
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('profile_picture', input.files[0]);
-
-            const response = await fetch('https://paso-app.ticsevn.com/upload_picture.php', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${user_id}`
-                },
-                body: formData
-            });
-
-            const data = await response.json();
-            if (data.success) {
-                document.getElementById('profile-picture').src = data.profile_picture;
-                document.getElementById('uploadModal').style.display = 'none';
-            } else {
-                alert('Error al subir la imagen');
-            }
-        }
-    </script>
 </body>
 </html>
