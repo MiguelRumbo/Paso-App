@@ -2,8 +2,10 @@ let currentStep = 1;
 let productCount = 1;
 
 document.getElementById('order-city').addEventListener('input', validateOrderCity);
-document.getElementById('product-1').addEventListener('input', validateProducts);
 document.getElementById('order-date').addEventListener('input', validateOrderDate);
+
+// Inicializar el primer producto
+document.getElementById('product-1')?.addEventListener('input', validateProducts);
 
 function validateOrderCity() {
     const orderCityInput = document.getElementById('order-city');
@@ -59,6 +61,8 @@ function addProduct() {
         <input type="text" class="text" id="product-${productCount}" placeholder="Nombre del producto" required>
     `;
     productsDiv.appendChild(newProductDiv);
+
+    // Agregar el listener de input al nuevo producto
     document.getElementById(`product-${productCount}`).addEventListener('input', validateProducts);
 }
 
@@ -156,6 +160,7 @@ function submitOrder() {
     .then(data => {
         if (data.success) {
             console.log('Order submitted successfully');
+            window.location.href = 'thank_you.html'; // Redirigir a la página de agradecimiento
         } else {
             console.error('Error submitting order', data.message);
         }
