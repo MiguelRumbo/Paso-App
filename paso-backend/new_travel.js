@@ -148,7 +148,8 @@ function submitTravelData() {
     fetch('https://paso-app.ticsevn.com/new_travel.php', {
         method: 'POST',
         headers: headers,
-        body: formData
+        body: formData,
+        credentials: 'include' // Asegúrate de enviar las cookies con la solicitud
     })
         .then(response => {
             if (!response.ok) {
@@ -169,7 +170,6 @@ function submitTravelData() {
             alert('Hubo un problema con la solicitud. Verifica la consola para más detalles.');
         });
 }
-
 
 function getCookie(name) {
     const value = `; ${document.cookie}`;
