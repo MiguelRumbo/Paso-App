@@ -123,17 +123,17 @@ function sendOrderData() {
         method: 'POST',
         credentials: 'include',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': 'Bearer ' + getCookie('token')
         },
-        body: JSON.stringify(data)
+        body: new URLSearchParams(data)
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
             window.location.href = 'thank_you.html';
         } else {
-            alert('Error al enviar el pedido: ' + data.message);
+            alert('Error al enviar el pedido: ' + data.error);
         }
     })
     .catch(error => {
