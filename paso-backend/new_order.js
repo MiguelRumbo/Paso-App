@@ -120,21 +120,23 @@ function sendOrderData() {
         return;
     }
 
+    const headers = new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${getCookie('user_id')}`
+    });
+
     const data = {
-        order_city: document.getElementById('order-city').value.trim(),
-        products: productNames,
-        order_date: document.getElementById('order-date').value,
-        comments: document.getElementById('comments').value.trim()
+        'order_city': document.getElementById('order-city').value.trim(),
+        'products': productNames,
+        'order_date': document.getElementById('order-date').value,
+        'comments': document.getElementById('comments').value.trim()
     };
 
     fetch('https://paso-app.ticsevn.com/new_order.php', {
         method: 'POST',
-        credentials: 'include',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Bearer ' + getCookie('token')
-        },
-        body: new URLSearchParams(data).toString() // Convertir datos a formato URL-encoded
+        headers: headers,
+        body: JSON.stringify(data),
+        credentials: 'include'
     })
     .then(response => {
         if (!response.ok) {
@@ -144,7 +146,7 @@ function sendOrderData() {
     })
     .then(data => {
         if (data.success) {
-            window.location.href = 'thank_you.html';
+            alert(data.success);
         } else {
             alert('Error al enviar el pedido: ' + data.error);
         }
@@ -154,8 +156,6 @@ function sendOrderData() {
         alert('Error al enviar el pedido: ' + error.message);
     });
 }
-
-
 
 function getCookie(name) {
     const value = `; ${document.cookie}`;
