@@ -147,7 +147,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <select>
+            <select id="city-select">
+                <option value="">Selecciona una ciudad</option>
                 <option value="Leon">León</option>
                 <option value="Guanajuato">Guanajuato</option>
                 <option value="Irapuato">Irapuato</option>
@@ -155,58 +156,12 @@
                 <option value="San Miguel de Allende">San Miguel de Allende</option>
                 <!-- Agrega más opciones según sea necesario -->
             </select>
-            <input type="date">
-            <button>Buscar</button>
+            <input type="date" id="date-input">
+            <button id="search-button">Buscar</button>
         </div>
         <h2>Próximos viajes a tu ciudad</h2>
-        <div class="trips-container">
-            <div class="trips">
-                <div class="trip">
-                    <img src="https://via.placeholder.com/50" alt="Juan">
-                    <div class="trip-info">
-                        <h3>Ciudades a visitar: Guadalajara, CDMX, Monterrey</h3>
-                        <p>Productos populares en estas ciudades</p>
-                        <p>Fecha de llegada a tu ciudad: 15/mayo/2024 (5 días)</p>
-                    </div>
-                    <div class="trip-price">$70</div>
-                </div>
-                <div class="trip">
-                    <img src="https://via.placeholder.com/50" alt="Carlos">
-                    <div class="trip-info">
-                        <h3>Ciudades a visitar: Irapuato, Toluca, Nayarit</h3>
-                        <p>Productos populares en estas ciudades</p>
-                        <p>Fecha de llegada a tu ciudad: 12/mayo/2024 (2 días)</p>
-                    </div>
-                    <div class="trip-price">$80</div>
-                </div>
-                <div class="trip">
-                    <img src="https://via.placeholder.com/50" alt="Carlos">
-                    <div class="trip-info">
-                        <h3>Ciudades a visitar: Puerto Vallarta, Nayarit</h3>
-                        <p>Productos populares en estas ciudades</p>
-                        <p>Fecha de llegada a tu ciudad: 12/mayo/2024 (2 días)</p>
-                    </div>
-                    <div class="trip-price">$80</div>
-                </div>
-                <div class="trip">
-                    <img src="https://via.placeholder.com/50" alt="Carlos">
-                    <div class="trip-info">
-                        <h3>Ciudades a visitar: Puerto Vallarta, Nayarit</h3>
-                        <p>Productos populares en estas ciudades</p>
-                        <p>Fecha de llegada a tu ciudad: 12/mayo/2024 (2 días)</p>
-                    </div>
-                    <div class="trip-price">$80</div>
-                </div>
-                <div class="trip">
-                    <img src="https://via.placeholder.com/50" alt="Carlos">
-                    <div class="trip-info">
-                        <h3>Ciudades a visitar: Puerto Vallarta, Nayarit</h3>
-                        <p>Productos populares en estas ciudades</p>
-                        <p>Fecha de llegada a tu ciudad: 12/mayo/2024 (2 días)</p>
-                    </div>
-                    <div class="trip-price">$80</div>
-                </div>
-            </div>
+        <div class="trips-container" id="trips-container">
+            <!-- Los viajes se llenarán dinámicamente aquí -->
         </div>
     </div>
     <div class="navbar">
@@ -231,5 +186,6 @@
             <span class="label">Perfil</span>
         </a>
     </div>
+    <script src="../../paso-backend/dashboard.js"></script>
 </body>
 </html>
