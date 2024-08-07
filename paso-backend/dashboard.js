@@ -27,6 +27,7 @@ document.getElementById('search-button').addEventListener('click', function() {
                             <h3>Ciudad de salida: ${trip.ciudad_salida}</h3>
                             <p>Fecha de llegada a tu ciudad: ${trip.fecha_llegada} (${trip.dias_restantes} días)</p>
                         </div>
+                        <a href="detail_travel.html?viajeId=${trip.id}">Ver detalles</a>
                     </div>
                 `;
                 container.appendChild(tripElement);

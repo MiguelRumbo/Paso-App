@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Viaje</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 414px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: left;
+            width: 50%;
+        }
+
+        .trip, .driver {
+            background-color: #fff;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            padding: 15px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .trip img, .driver img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .trip-info, .driver-info {
+            flex: 1;
+            margin-left: 10px;
+        }
+
+        .trip-info h3, .driver-info h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .trip-info p, .driver-info p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn, .btn-large {
+            display: inline-block;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            background-color: #ffa500;
+            color: white;
+        }
+
+        .btn-large {
+            background-color: #007bff;
+            color: white;
+            width: calc(100% - 40px);
+        }
+
+        .navbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #000;
+            text-align: center;
+            flex: 1;
+        }
+
+        .navbar a .icon {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .navbar a.active .icon {
+            color: #007bff;
+        }
+
+        .navbar a.active .label {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Detalle del Viaje</h1>
+        <div id="trip-details" class="trip">
+            <!-- Detalles del viaje -->
+        </div>
+        <div id="driver-details" class="driver">
+            <!-- Detalles del conductor -->
+        </div>
+        <div class="btn-container">
+            <button class="btn" id="save-trip">Guardar Viaje</button>
+            <button class="btn-large" id="make-order">Hacer un encargo</button>
+        </div>
+    </div>
+    <div class="navbar">
+        <a href="dashboard.html">
+            <span class="icon">🏠</span>
+            <span class="label">Inicio</span>
+        </a>
+        <a href="new.html">
+            <span class="icon">➕</span>
+            <span class="label">Agregar</span>
+        </a>
+        <a href="#">
+            <span class="icon">🔄</span>
+            <span class="label">Actualizar</span>
+        </a>
+        <a href="#">
+            <span class="icon">🧭</span>
+            <span class="label">Explorar</span>
+        </a>
+        <a href="profile.html">
+            <span class="icon">👤</span>
+            <span class="label">Perfil</span>
+        </a>
+    </div>
+    <script src="../../paso-backend/detail_travel.js"></script>
+</body>
+</html>
