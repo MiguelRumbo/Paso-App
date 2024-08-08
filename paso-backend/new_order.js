@@ -54,26 +54,14 @@ function prevStep() {
 function showStep(step) {
     const steps = document.querySelectorAll('.container > div');
     steps.forEach((stepElement, index) => {
-        if (index === step - 1) {
-            stepElement.style.display = 'block';
-        } else {
-            stepElement.style.display = 'none';
-        }
+        stepElement.style.display = index === step - 1 ? 'block' : 'none';
     });
 
     const backButton = document.querySelector('.back-button');
-    if (step === 1) {
-        backButton.style.display = 'none';
-    } else {
-        backButton.style.display = 'block';
-    }
+    backButton.style.display = step === 1 ? 'none' : 'block';
 
     const nextButton = document.getElementById('next-button');
-    if (step === 5) {
-        nextButton.style.display = 'none';
-    } else {
-        nextButton.style.display = 'block';
-    }
+    nextButton.style.display = step === 5 ? 'none' : 'block';
 }
 
 function validateProducts() {
@@ -87,12 +75,7 @@ function validateProducts() {
         }
     });
 
-    if (!isValid) {
-        productError.style.display = 'block';
-    } else {
-        productError.style.display = 'none';
-    }
-
+    productError.style.display = isValid ? 'none' : 'block';
     return isValid;
 }
 
@@ -172,7 +155,14 @@ function submitOrder() {
         body: JSON.stringify(orderData),
         credentials: 'include'
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            return response.text().then(text => {
+                throw new Error(`Error: ${text}`);
+            });
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.error) {
             alert(`Error: ${data.error}`);
@@ -180,7 +170,7 @@ function submitOrder() {
             alert('Pedido registrado correctamente');
         }
     })
-    .catch((error) => {
+    .catch(error => {
         console.error('Error:', error);
     });
 }
