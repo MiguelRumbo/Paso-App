@@ -140,7 +140,7 @@ function submitOrder() {
     const orderCity = document.getElementById('order-city').value;
     const comments = document.getElementById('comments').value;
     const productItems = document.querySelectorAll('.product-item');
-    const userId = getCookie('user_id');  // Obtiene el ID del usuario de las cookies
+    const userToken = getCookie('Authorization');  // Obtiene el token del usuario de las cookies
 
     let products = [];
 
@@ -158,7 +158,6 @@ function submitOrder() {
     });
 
     const orderData = {
-        user_id: userId,
         order_city: orderCity,
         comments: comments,
         products: products
@@ -167,14 +166,19 @@ function submitOrder() {
     fetch('https://paso-app.ticsevn.com/new_order.php', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${userToken}`
         },
-        body: JSON.stringify(orderData)
+        body: JSON.stringify(orderData),
+        credentials: 'include'
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Success:', data);
-        // Aquí puedes manejar la respuesta del servidor y mostrar un mensaje al usuario si es necesario
+        if (data.error) {
+            alert(`Error: ${data.error}`);
+        } else {
+            alert('Pedido registrado correctamente');
+        }
     })
     .catch((error) => {
         console.error('Error:', error);
