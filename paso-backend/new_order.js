@@ -123,7 +123,7 @@ function submitOrder() {
     const orderCity = document.getElementById('order-city').value;
     const comments = document.getElementById('comments').value;
     const productItems = document.querySelectorAll('.product-item');
-    const userToken = getCookie('Authorization');  // Obtiene el token del usuario de las cookies
+    const userToken = getCookie('user_id');  // Obtiene el token del usuario de las cookies
 
     let products = [];
 
