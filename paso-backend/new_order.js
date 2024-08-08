@@ -155,19 +155,18 @@ function submitOrder() {
         body: JSON.stringify(orderData),
         credentials: 'include'
     })
-    .then(response => {
-        if (!response.ok) {
-            return response.text().then(text => {
-                throw new Error(`Error: ${text}`);
-            });
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.error) {
-            alert(`Error: ${data.error}`);
-        } else {
-            alert('Pedido registrado correctamente');
+    .then(response => response.text()) // Cambia a text() para ver la respuesta
+    .then(text => {
+        console.log('Server Response:', text); // Imprime la respuesta
+        try {
+            const data = JSON.parse(text);
+            if (data.error) {
+                alert(`Error: ${data.error}`);
+            } else {
+                alert('Pedido registrado correctamente');
+            }
+        } catch (e) {
+            console.error('Error parsing JSON:', e);
         }
     })
     .catch(error => {
