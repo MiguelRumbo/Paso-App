@@ -59,16 +59,58 @@
             color: #0037FF;
         }
 
-        input.text,
-        .container .date-input,
-        .container .number-input,
-        .container textarea {
-            width: 90%;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 5px;
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            width: 100%;
+            padding: 10px;
+        }
+
+        .product-item {
             border: 1px solid #ccc;
-            font-size: 22px;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .product-item img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        .product-item h3 {
+            font-size: 18px;
+            margin: 10px 0 5px;
+        }
+
+        .product-item p {
+            color: green;
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .counter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .counter button {
+            border: none;
+            background-color: #0070FF;
+            color: white;
+            font-size: 18px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+
+        .counter span {
+            font-size: 18px;
         }
 
         .submit-button {
@@ -119,13 +161,6 @@
         @media (max-width: 414px) {
             .container {
                 width: 100%;
-            }
-
-            input.text,
-            .container .date-input,
-            .container .number-input,
-            .container textarea {
-                width: 80%;
             }
         }
 
@@ -181,23 +216,20 @@
         </div>
         <div id="step-2" style="display: none;">
             <h2>¿Qué productos deseas pedir?</h2>
-            <div id="products">
-                <div class="product-item">
-                    <label for="product-1">Producto 1:</label>
-                    <input type="text" class="text" id="product-1" placeholder="Nombre del producto" required>
-                </div>
+            <div class="product-grid">
+                <!-- Aquí se generarán los productos dinámicamente -->
             </div>
-            <button type="button" onclick="addProduct()">Agregar otro producto</button>
             <div class="error-message" id="product-error">Por favor, agrega al menos un producto.</div>
         </div>
         <div id="step-3" style="display: none;">
-            <h2>¿Cuándo deseas recibir tu pedido?</h2>
-            <input type="date" class="date-input" id="order-date" required>
-            <div class="error-message" id="order-date-error">Selecciona una fecha válida.</div>
-        </div>
-        <div id="step-4" style="display: none;">
             <h2>¿Gustas agregar comentarios o detalles adicionales?</h2>
             <textarea class="text" id="comments" rows="4" placeholder="Escribe tus comentarios aquí..."></textarea>
+        </div>
+        <div id="step-4" style="display: none;">
+            <h2>Resumen del Pedido</h2>
+            <div class="summary">
+                <!-- Aquí se generará el resumen del pedido dinámicamente -->
+            </div>
         </div>
         <div id="step-5" style="display: none;">
             <h2>Gracias por tu pedido</h2>
