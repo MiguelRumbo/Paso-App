@@ -153,16 +153,9 @@ function submitOrder() {
             'Authorization': `Bearer ${userToken}`
         },
         body: JSON.stringify(orderData),
-        credentials: 'include'
+        credentials: 'include' // Incluye cookies con la solicitud
     })
-    .then(response => {
-        if (!response.ok) {
-            return response.text().then(text => {
-                throw new Error(`Error: ${text}`);
-            });
-        }
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
         if (data.error) {
             alert(`Error: ${data.error}`);
