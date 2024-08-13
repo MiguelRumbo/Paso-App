@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="trip-info">
                         <h3>Ciudad de salida: ${data.viaje.ciudad_salida_real}</h3>
                         <h3>Ciudad de destino: ${data.viaje.ciudad_destino_real}</h3>
-                        <p>Fecha de llegada a tu ciudad: ${data.viaje.fecha_llegada} (${data.viaje.dias_restantes} días)</p>
+                        <p>Fecha de llegada a tu ciudad: ${data.viaje.fecha_llegada}</p>
                         <p>Contenedores fríos: ${data.viaje.contenedores_frios}</p>
                         <p>Contenedores calientes: ${data.viaje.contenedores_calientes}</p>
                     </div>
@@ -49,6 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.getElementById('make-order').addEventListener('click', function() {
-        window.location.href = "#";
+        window.location.href = "new_order.html";
     });
 });
