@@ -15,13 +15,22 @@ const urlsToCache = [
     '/Paso-App/paso-frontend/Icons/Logo-192.png',
     '/Paso-App/paso-frontend/Icons/Logo.svg',
     '/Paso-App/paso-frontend/Icons/Logo-512.png',
+    '/Paso-App/paso-frontend/Icons/Agregar.png',
+    '/Paso-App/paso-frontend/Icons/Casa.png',
+    '/Paso-App/paso-frontend/Icons/Discover.png',
+    '/Paso-App/paso-frontend/Icons/Paso.png',
+    '/Paso-App/paso-frontend/Icons/Perfil.png',
     '/Paso-App/paso-backend/dashboard.js',
     '/Paso-App/paso-backend/detail_travel.js',
     '/Paso-App/paso-backend/login.js',
     '/Paso-App/paso-backend/new_order.js',
     '/Paso-App/paso-backend/new_travel.js',
     '/Paso-App/paso-backend/profile.js',
-    '/Paso-App/paso-backend/register.js'
+    '/Paso-App/paso-backend/register.js',
+    '/Paso-App/paso-backend/img/Cajeta.png',
+    '/Paso-App/paso-backend/img/Chimichurri.png',
+    '/Paso-App/paso-backend/img/Fresa.png',
+    '/Paso-App/paso-backend/img/Yoli.png'
 ];
 
 // Instalación del service worker y almacenamiento en caché de recursos
