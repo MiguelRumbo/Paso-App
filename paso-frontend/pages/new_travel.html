@@ -183,8 +183,17 @@
             margin-bottom: 5px;
         }
 
-        .navbar a.active .icon {
-            color: #007bff;
+        .navbar a .icon img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            max-height: 30px;
+            /* Tamaño máximo para mantener la proporción */
+        }
+
+        .navbar a.active .icon img {
+            filter: brightness(0) saturate(100%) invert(28%) sepia(100%) saturate(3337%) hue-rotate(200deg) brightness(94%) contrast(101%);
         }
 
         .navbar a.active .label {
@@ -250,24 +259,24 @@
             disabled>&gt;</button>
     </form>
     <div class="navbar">
-        <a href="dashboard.html" class="active">
-            <span class="icon">🏠</span>
+        <a href="#" class="active">
+            <span class="icon"><img src="../icons/Casa.png" alt=""></span>
             <span class="label">Inicio</span>
         </a>
         <a href="new.html">
-            <span class="icon">➕</span>
+            <span class="icon"><img src="../icons/Agregar.png" alt=""></span>
             <span class="label">Agregar</span>
         </a>
         <a href="#">
-            <span class="icon">🔄</span>
+            <span class="icon"><img src="../icons/Paso.png" alt=""></span>
             <span class="label">Actualizar</span>
         </a>
         <a href="#">
-            <span class="icon">🧭</span>
+            <span class="icon"><img src="../icons/Discover.png" alt=""></span>
             <span class="label">Explorar</span>
         </a>
         <a href="profile.html">
-            <span class="icon">👤</span>
+            <span class="icon"><img src="../icons/Perfil.png" alt=""></span>
             <span class="label">Perfil</span>
         </a>
     </div>

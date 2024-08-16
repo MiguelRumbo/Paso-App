@@ -2,17 +2,25 @@ const CACHE_NAME = 'paso-app-cache-v1';
 const urlsToCache = [
     '/Paso-App/',
     '/Paso-App/index.html',
-    '/Paso-App/paso-frontend/pages/register.html',
-    '/Paso-App/paso-frontend/pages/profile.html',
-    '/Paso-App/paso-frontend/pages/login.html',
     '/Paso-App/paso-frontend/pages/dashboard.html',
+    '/Paso-App/paso-frontend/pages/detail_travel.html',
+    '/Paso-App/paso-frontend/pages/login.html',
+    '/Paso-App/paso-frontend/pages/new_order.html',
     '/Paso-App/paso-frontend/pages/new_travel.html',
+    '/Paso-App/paso-frontend/pages/new.html',
+    '/Paso-App/paso-frontend/pages/profile.html',
+    '/Paso-App/paso-frontend/pages/register.html',
     '/Paso-App/paso-frontend/pages/signup.html',
     '/Paso-App/manifest.json',
     '/Paso-App/paso-frontend/Icons/Logo-192.png',
     '/Paso-App/paso-frontend/Icons/Logo.svg',
     '/Paso-App/paso-frontend/Icons/Logo-512.png',
+    '/Paso-App/paso-backend/dashboard.js',
+    '/Paso-App/paso-backend/detail_travel.js',
     '/Paso-App/paso-backend/login.js',
+    '/Paso-App/paso-backend/new_order.js',
+    '/Paso-App/paso-backend/new_travel.js',
+    '/Paso-App/paso-backend/profile.js',
     '/Paso-App/paso-backend/register.js'
 ];
 

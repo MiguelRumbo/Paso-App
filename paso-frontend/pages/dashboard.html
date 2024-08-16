@@ -1,9 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Próximos Viajes</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="apple-touch-icon" href="../Icons/Logo-192.png">
+    <link rel="icon" href="../Icons/Logo.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#0037FF">
+    <meta name="description" content="Servicio de delivery de diversos productos">
+
+    <!-- Metadatos específicos para iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Paso">
+    <link rel="apple-touch-icon" sizes="180x180" href="../Icons/Logo-192.png">
+    <link rel="apple-touch-startup-image" href="../Icons/Logo-512.png">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,7 +24,8 @@
             margin: 0;
             padding: 0;
             position: relative;
-            padding-bottom: 70px; /* espacio para la barra de navegación */
+            padding-bottom: 70px;
+            /* espacio para la barra de navegación */
         }
 
         .container {
@@ -55,8 +69,10 @@
         }
 
         .trips-container {
-            max-height: 70vh; /* Altura máxima de la sección */
-            overflow-y: auto; /* Activar desplazamiento vertical */
+            max-height: 70vh;
+            /* Altura máxima de la sección */
+            overflow-y: auto;
+            /* Activar desplazamiento vertical */
             margin-top: 20px;
         }
 
@@ -135,8 +151,17 @@
             margin-bottom: 5px;
         }
 
-        .navbar a.active .icon {
-            color: #007bff;
+        .navbar a .icon img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            max-height: 30px;
+            /* Tamaño máximo para mantener la proporción */
+        }
+
+        .navbar a.active .icon img {
+            filter: brightness(0) saturate(100%) invert(28%) sepia(100%) saturate(3337%) hue-rotate(200deg) brightness(94%) contrast(101%);
         }
 
         .navbar a.active .label {
@@ -144,6 +169,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -166,26 +192,27 @@
     </div>
     <div class="navbar">
         <a href="#" class="active">
-            <span class="icon">🏠</span>
+            <span class="icon"><img src="../icons/Casa.png" alt=""></span>
             <span class="label">Inicio</span>
         </a>
         <a href="new.html">
-            <span class="icon">➕</span>
+            <span class="icon"><img src="../icons/Agregar.png" alt=""></span>
             <span class="label">Agregar</span>
         </a>
         <a href="#">
-            <span class="icon">🔄</span>
+            <span class="icon"><img src="../icons/Paso.png" alt=""></span>
             <span class="label">Actualizar</span>
         </a>
         <a href="#">
-            <span class="icon">🧭</span>
+            <span class="icon"><img src="../icons/Discover.png" alt=""></span>
             <span class="label">Explorar</span>
         </a>
         <a href="profile.html">
-            <span class="icon">👤</span>
+            <span class="icon"><img src="../icons/Perfil.png" alt=""></span>
             <span class="label">Perfil</span>
         </a>
     </div>
     <script src="../../paso-backend/dashboard.js"></script>
 </body>
+
 </html>

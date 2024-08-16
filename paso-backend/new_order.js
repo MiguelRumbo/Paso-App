@@ -177,10 +177,10 @@ function getCookie(name) {
 document.addEventListener('DOMContentLoaded', function () {
     const productGrid = document.querySelector('.product-grid');
     const products = [
-        { name: 'Producto 1', price: 10.00, image: '../icons/Logo.svg' },
-        { name: 'Producto 2', price: 15.00, image: '../icons/Logo.svg' },
-        { name: 'Producto 3', price: 20.00, image: '../icons/Logo.svg' },
-        { name: 'Producto 4', price: 25.00, image: '../icons/Logo.svg' }
+        { name: 'Cajeta', price: 50.00, image: '../img/Cajeta.png' },
+        { name: 'Fresa', price: 32.00, image: '../img/Fresa.png' },
+        { name: 'Chimichurri', price: 25.00, image: '../img/Chimichurri.png' },
+        { name: 'Yoli', price: 20.00, image: '../img/Yoli.png' }
     ];
 
     products.forEach(product => {
